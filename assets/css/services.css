@@ -1,0 +1,495 @@
+/* ---------- Banner ---------- */
+.banner-section{
+    background-image: url('../images/services/banner.png');
+    margin-top: 70px;
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    transition: background-image 0.4s ease-in-out;
+    position: relative;
+
+}
+
+.banner-section .container{
+    position: relative;
+    height: 100%;
+}
+.title-page{
+    position: absolute;
+    color: var(--white);
+    bottom: 50px;
+    left: 0;
+}
+.title-page h1, a{
+    color: var(--white);
+}
+.title-page .current{
+    color: var(--white);
+}
+
+.title-page span{
+    color: var(--text-main);
+}
+
+.ecosystem-section .title-with-line{
+    font-size: 1.5rem;
+}
+
+
+
+/* --- Hệ sinh thái dịch vụ Layout --- */
+.ecosystem-section {
+    background-color: #fafafa;
+    padding: 80px 0;
+}
+.ecosystem-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 50px;
+}
+.ecosystem-intro h2 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--primary-color, #1b5e20);
+    margin: var(--spacing-3) 0;
+}
+
+.ecosystem-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Các bước Icon kết nối ngang */
+.ecosystem-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    position: relative;
+}
+.ecosystem-steps::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 12.5%;
+    width: 75%;
+    height: 1px;
+    background-color: #e0e0e0;
+    z-index: 1;
+}
+.step-item {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+.step-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #113426; /* Màu xanh thẫm tối */
+    color: #fff;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.step-item h4 {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #333;
+}
+
+/* Các khối hình ảnh bên dưới */
+.ecosystem-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.gallery-card {
+    background: transparent;
+}
+.gallery-card .img-wrapper {
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    height: 150px;
+}
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.gallery-card:hover img {
+    transform: scale(1.05);
+}
+.gallery-card p {
+    font-size: 13.5px;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* --- Dịch vụ chủ lực 4 Cards --- */
+.core-services-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+.core-section-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    color: var(--primary-color, #1b5e20);
+}
+.core-services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+.core-service-card {
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    padding: 25px 20px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease;
+}
+.core-service-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.card-num {
+    font-size: 28px;
+    font-weight: 300;
+    color: #c5a880; /* Tông màu vàng kim nhạt nghệ thuật */
+}
+.card-divider {
+    width: 30px;
+    height: 1px;
+    background-color: #c5a880;
+}
+.card-header h3 {
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0;
+    color: #113426;
+}
+.card-img {
+    height: 180px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* --- Mạng lưới kết nối --- */
+.network-section {
+    background-image: url('../images/services/network.png');
+    margin-top: 70px;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.4s ease-in-out;
+    height: 450px;
+    position: relative;
+
+}
+.network-content{
+    width: 40%;
+}
+.network-title {
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
+.network-desc {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 35px;
+    width: 60%;
+}
+
+/* ============================================= */
+/*                 RESPONSIVE                     */
+/* ============================================= */
+
+/* ---------- Tablet lớn & Desktop nhỏ (≤1200px) ---------- */
+@media screen and (max-width: 1200px) {
+    .ecosystem-layout {
+        grid-template-columns: 250px 1fr;
+        gap: 40px;
+    }
+    .ecosystem-intro h2 {
+        font-size: 28px;
+    }
+    .core-services-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .network-content {
+        width: 55%;
+    }
+    .network-desc {
+        width: 80%;
+    }
+}
+
+/* ---------- Tablet ngang (≤992px) ---------- */
+@media screen and (max-width: 992px) {
+    .banner-section {
+        height: 380px;
+    }
+    .ecosystem-section {
+        padding: 50px 0;
+    }
+    .ecosystem-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .ecosystem-intro {
+        text-align: center;
+    }
+    .ecosystem-intro .section-header {
+        justify-content: center;
+    }
+    .ecosystem-intro h2.section-title br {
+        display: none;
+    }
+    .ecosystem-intro .section-title {
+        font-size: 26px;
+    }
+    .ecosystem-steps {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .ecosystem-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .core-services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .core-section-title {
+        font-size: 26px;
+    }
+    .network-section {
+        height: 350px;
+    }
+    .network-content {
+        width: 70%;
+    }
+    .network-title {
+        font-size: 26px;
+    }
+    .network-desc {
+        width: 100%;
+    }
+}
+
+/* ---------- Tablet dọc (≤768px) ---------- */
+@media screen and (max-width: 768px) {
+    .banner-section {
+        height: 300px;
+        margin-top: 60px;
+    }
+    .title-page {
+        bottom: 30px;
+    }
+    .title-page h1 {
+        font-size: 1.6rem;
+    }
+    .title-page .breadcrumb {
+        font-size: 13px;
+    }
+
+    /* Ecosystem */
+    .ecosystem-section {
+        padding: 40px 0;
+    }
+    .ecosystem-section .title-with-line {
+        font-size: 1.1rem;
+    }
+    .ecosystem-intro h2.section-title {
+        font-size: 22px;
+    }
+    .ecosystem-intro .section-desc {
+        font-size: 14px;
+    }
+    .ecosystem-content {
+        gap: 30px;
+    }
+    .ecosystem-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 15px;
+    }
+    .ecosystem-steps::before {
+        display: none;
+    }
+    .step-item h4 {
+        font-size: 12px;
+    }
+    .ecosystem-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    .gallery-card .img-wrapper {
+        height: 130px;
+    }
+    .gallery-card p {
+        font-size: 12px;
+    }
+
+    /* Core services */
+    .core-services-section {
+        padding: 40px 0;
+    }
+    .core-section-title {
+        font-size: 22px;
+        margin-bottom: 30px;
+    }
+    .core-services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+    .card-img {
+        height: 200px;
+    }
+
+    /* Network */
+    .network-section {
+        height: 300px;
+        margin-top: 40px;
+    }
+    .network-content {
+        width: 85%;
+    }
+    .network-title {
+        font-size: 22px;
+    }
+    .network-desc {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+}
+
+/* ---------- Mobile (≤576px) ---------- */
+@media screen and (max-width: 576px) {
+    .banner-section {
+        height: 240px;
+        margin-top: 56px;
+    }
+    .title-page {
+        bottom: 20px;
+    }
+    .title-page h1 {
+        font-size: 1.3rem;
+    }
+    .title-page .breadcrumb {
+        font-size: 12px;
+    }
+
+    /* Ecosystem */
+    .ecosystem-section {
+        padding: 30px 0;
+    }
+    .ecosystem-section .title-with-line {
+        font-size: 1rem;
+    }
+    .ecosystem-intro h2.section-title {
+        font-size: 20px;
+    }
+    .ecosystem-intro .section-desc {
+        font-size: 13px;
+    }
+    .ecosystem-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px 10px;
+    }
+    .step-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .step-item h4 {
+        font-size: 11px;
+    }
+    .ecosystem-gallery {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .gallery-card .img-wrapper {
+        height: 110px;
+        margin-bottom: 10px;
+    }
+    .gallery-card p {
+        font-size: 11px;
+    }
+
+    /* Core services */
+    .core-services-section {
+        padding: 30px 0;
+    }
+    .core-section-title {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
+    .core-service-card {
+        padding: 18px 15px;
+    }
+    .card-header h3 {
+        font-size: 13px;
+    }
+    .card-num {
+        font-size: 24px;
+    }
+    .card-img {
+        height: 170px;
+    }
+    .card-desc {
+        font-size: 13px;
+    }
+
+    /* Network */
+    .network-section {
+        height: 260px;
+        margin-top: 30px;
+    }
+    .network-content {
+        width: 100%;
+    }
+    .network-title {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    .network-desc {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+}
+
+
+

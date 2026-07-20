@@ -1,0 +1,706 @@
+.banner {
+    position: relative;
+    background-image: url('../images/index/banner.jpg');
+    margin-top: 70px;
+    background-size: cover;
+    background-position: center;
+    height: 650px;
+    transition: background-image 0.4s ease-in-out;
+}
+
+.banner-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--primary-color);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    transition: all 0.3s ease;
+}
+
+.banner-arrow:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.banner-arrow-left {
+    left: 30px;
+}
+
+.banner-arrow-right {
+    right: 30px;
+}
+
+.about-section .content {
+    flex: 1;
+}
+
+.about-section .picture {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.about-section .picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+}
+
+.about-section p {
+    color: black;
+    margin-bottom: 50px;
+    width: 80%;
+}
+
+.about-section h2 {
+    font-weight: 500;
+    font-size: 4rem;
+}
+
+.container-flex.values {
+    margin-top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: var(--spacing-4);
+}
+
+.value-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+
+.card-header .icon {
+    color: var(--secondary-color);
+    font-size: 45px;
+}
+
+
+.card-header .title {
+    color: var(--primary-color);
+    font-size: 22px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+
+.card-body p {
+    color: var(--text-color);
+    line-height: 1.6;
+    font-size: 15px;
+    margin: 0;
+    text-align: left;
+}
+/* lĩnh vực hoạt động */
+.activities-section {
+    background-color: var(--bg-light);
+    padding: 60px 0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.about-section .title-with-line {
+    border-left: 4px solid #df0012;
+    padding-left: 15px;
+}
+
+.title-with-line {
+    font-size: 26px;
+    color: var(--primary-color);
+    /* Màu xanh lá của công ty */
+    text-transform: uppercase;
+    border-left: 4px solid #df0012;
+    padding-left: 15px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.activities-section .slider-arrows .arrow-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: #111;
+    cursor: pointer;
+    margin-left: 15px;
+    transition: color 0.3s;
+}
+
+.activities-section .slider-arrows .arrow-btn:hover {
+    color: var(--primary-color);
+}
+
+
+.activity-grid {
+    display: grid;
+    max-width: var(--max-width);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* Thiết kế từng Thẻ (Card) */
+.activity-card {
+    background-color: var(--white);
+    min-height: 450px;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.activity-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-card .activity-picture {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.activity-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+
+}
+
+.activity-card .card-title {
+    font-size: 20px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.activity-card .card-desc {
+    font-size: 15px;
+    color: #666666;
+    line-height: 1.6;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.activity-card .corner-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 65px;
+    height: 65px;
+    background-color: var(--primary-color);
+    border-top-left-radius: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 15px 18px;
+    color: var(--white);
+    transition: all 0.3s ease;
+}
+
+.activity-card .corner-btn i {
+    font-size: 16px;
+}
+
+
+.activity-card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-color: #f7b2b7;
+}
+
+.activity-card:hover .card-icon,
+.activity-card:hover .card-title {
+    color: #e55353;
+}
+
+.activity-card:hover .corner-btn {
+    background-color: #fca5a5;
+    color: #d81b22;
+}
+
+
+.news-section .container-flex {
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.container-flex-left,
+.container-flex-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.container-flex-left {
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+}
+
+.container-flex-left .content {
+    padding: var(--spacing-2);
+}
+.container-flex-right-small {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-2);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    gap: var(--spacing-2);
+}
+
+.container-flex-right-small h4 {
+    padding-right: var(--spacing-2);
+    font-size: 15px;
+    color: var(--text-main);
+}
+
+.container-flex-right-small img {
+    width: 50%;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+/* sản phẩm */
+.products-section {
+    background: linear-gradient(to bottom, #b1dfb7, #3ba84a);
+}
+
+.products-section h2 {
+    color: var(--white);
+}
+
+.products-item {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-2);
+    background-color: var(--white);
+
+}
+
+.products-section .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.products-section .content {
+    width: 35%;
+    margin-left: var(--spacing-2);
+    margin-top: var(--spacing-2);
+}
+
+.products-section .picture img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.product-slider-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 2. Biến container-flex thành track trượt ngang */
+.product-slider-track {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: 0;
+    /* Override padding của .container-flex để slider full-width */
+
+    /* Ẩn thanh cuộn mặc định để giao diện sạch sẽ */
+    scrollbar-width: none;
+}
+
+.product-slider-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* 3. Tùy chỉnh các item cũ của bạn để phù hợp slider */
+.product-slider-track .products-item {
+    flex: 0 0 100%;
+    /* Đảm bảo mỗi thẻ hiển thị chiếm 100% không gian hiện tại */
+    scroll-snap-align: start;
+}
+
+/* 4. Định dạng nút mũi tên (Đồng bộ với style trang của bạn) */
+.products-section .slider-arrows .arrow-btn {
+    background: var(--white);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    /* Nút tròn hiện đại */
+    font-size: 18px;
+    color: var(--primary-color);
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    box-shadow: var(--box-shadow);
+}
+
+.products-section .slider-arrows .arrow-btn:hover {
+    background: #144d18;
+    /* Xanh đậm hơn khi hover giống btn-primary */
+    color: var(--white);
+}
+
+/* ============================================================
+   RESPONSIVE – INDEX PAGE
+   ============================================================ */
+
+/* ----- Tablet: ≤ 992px ----- */
+@media (max-width: 992px) {
+
+    /* --- Banner --- */
+    .banner {
+        height: 420px;
+        margin-top: 60px;
+    }
+
+    .banner-arrow {
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
+    }
+
+    .banner-arrow-left {
+        left: 16px;
+    }
+
+    .banner-arrow-right {
+        right: 16px;
+    }
+
+    /* --- About Section --- */
+    .about-section h2 {
+        font-size: 2.8rem;
+    }
+
+    .about-section p {
+        margin-bottom: 40px;
+        width: 100%;
+    }
+
+    .about-section .container-flex {
+        gap: 24px;
+    }
+
+    /* Value cards: 2 cột + 1 hàng dưới */
+    .container-flex.values {
+        flex-wrap: wrap;
+        gap: var(--spacing-3);
+    }
+
+    .value-card {
+        flex: 0 0 calc(50% - var(--spacing-3));
+    }
+
+    /* --- Activities --- */
+    .activity-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .activity-card {
+        height: auto;
+        min-height: 380px;
+    }
+
+    /* --- Products --- */
+    .products-section .content {
+        width: 45%;
+    }
+
+    .products-section .slider-arrows .arrow-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    /* --- News --- */
+    .news-section .container-flex {
+        gap: 20px;
+    }
+
+    .container-flex-right-small {
+        flex-direction: column;
+        padding: var(--spacing-2);
+    }
+
+    .container-flex-right-small img {
+        width: 100%;
+        height: 140px;
+    }
+
+    .container-flex-right-small h4 {
+        padding: 0 var(--spacing-1);
+    }
+}
+
+/* ----- Mobile: < 768px ----- */
+@media (max-width: 768px) {
+
+    /* --- Banner --- */
+    .banner {
+        height: 280px;
+        margin-top: 54px;
+        background-position: center;
+    }
+
+    .banner-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .banner-arrow-left {
+        left: 8px;
+    }
+
+    .banner-arrow-right {
+        right: 8px;
+    }
+
+    /* --- About Section --- */
+    .about-section .container-flex {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .about-section h2 {
+        font-size: 2rem;
+    }
+
+    .about-section h3 {
+        font-size: 1.2rem;
+    }
+
+    .about-section p {
+        margin-bottom: 24px;
+        width: 100%;
+    }
+
+    .about-section .picture {
+        display: none;
+    }
+
+    /* Value cards: 1 cột */
+    .container-flex.values {
+        flex-direction: column;
+        gap: 24px;
+        margin-top: 32px;
+    }
+
+    .value-card {
+        flex: 1 1 100%;
+    }
+
+    .card-header .title {
+        font-size: 18px;
+    }
+
+    .card-header .icon {
+        font-size: 36px;
+    }
+
+    /* --- Activities --- */
+    .activities-section {
+        padding: 40px 0;
+    }
+
+    .activity-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .activity-card {
+        min-height: unset;
+    }
+
+    .activity-card .activity-picture {
+        height: 180px;
+    }
+
+    .activity-card .card-title {
+        font-size: 18px;
+    }
+
+    .activity-card .card-desc {
+        font-size: 14px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    /* --- Products --- */
+    .products-section .content {
+        width: 100%;
+        margin: var(--spacing-2);
+    }
+
+    .products-item {
+        flex-direction: column-reverse;
+    }
+
+    .products-section .picture {
+        width: 100%;
+        height: 220px;
+    }
+
+    .products-section .picture img {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .products-section .slider-arrows .arrow-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+        margin-left: 6px;
+    }
+
+    .product-slider-wrapper {
+        border-radius: var(--border-radius);
+    }
+
+    /* --- News --- */
+    .news-section .container-flex {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .container-flex-left {
+        width: 100%;
+    }
+
+    .container-flex-right {
+        width: 100%;
+    }
+
+    .container-flex-right-small {
+        flex-direction: column;
+        gap: 12px;
+        padding: var(--spacing-2);
+    }
+
+    .container-flex-right-small h4 {
+        padding: 0 var(--spacing-1);
+    }
+
+    .container-flex-right-small img {
+        width: 100%;
+        height: 160px;
+    }
+}
+
+/* ----- Small phones: ≤ 480px ----- */
+@media (max-width: 480px) {
+    .banner {
+        height: 200px;
+        margin-top: 50px;
+    }
+
+    .banner-arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .banner-arrow-left { left: 6px; }
+    .banner-arrow-right { right: 6px; }
+
+    .about-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .about-section h3 {
+        font-size: 1rem;
+    }
+
+    .about-section p {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .card-header .title {
+        font-size: 16px;
+    }
+
+    .card-header .icon {
+        font-size: 30px;
+    }
+
+    .activities-section {
+        padding: 32px 0;
+    }
+
+    .activity-card {
+        min-height: unset;
+    }
+
+    .activity-card .activity-picture {
+        height: 150px;
+    }
+
+    .activity-card .card-title {
+        font-size: 16px;
+    }
+
+    .products-section .picture {
+        height: 180px;
+    }
+
+    .container-flex-right-small img {
+        height: 120px;
+    }
+}
