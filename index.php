@@ -69,12 +69,11 @@ if (is_dir($bannerDir)) {
                     <?= $lang['index_btn_learn_more'] ?>
                 </a>
             </div>
-
-            <div class="picture">
-                <img src="assets/images/index/vietnam-campuchia.png" alt="About Us">
-            </div>
         </div>
+    </div>
 
+    <!-- Giá trị cốt lõi -->
+    <div class="section values-section">
         <div class="container-flex values">
             <!-- Thẻ 1 -->
             <div class="value-card">
@@ -192,89 +191,75 @@ if (is_dir($bannerDir)) {
         <div class="container">
             <div class="section-header">
                 <h2 class="title-with-line"><?= $lang['index_products_heading'] ?></h2>
-                <div class="slider-arrows">
-                    <button id="prevProduct" class="arrow-btn"><i class="fas fa-arrow-left"></i></button>
-                    <button id="nextProduct" class="arrow-btn"><i class="fas fa-arrow-right"></i></button>
-                </div>
             </div>
+        </div>
 
-            <div class="product-slider-wrapper">
-                <div class="container-flex product-slider-track" id="productSlider">
+        <div class="product-slider-outer">
+            <button id="prevProduct" class="arrow-btn arrow-btn--prev" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
+            <button id="nextProduct" class="arrow-btn arrow-btn--next" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
 
-                    <div class="products-item">
-                        <div class="content">
-                            <h3><?= $lang['index_product_1_title'] ?></h3>
-                            <p>
-                                <?= $lang['index_product_1_desc'] ?>
-                            </p>
+            <div class="product-slider-track" id="productSlider">
 
-                        </div>
-                        <div class="picture">
-                            <img src="assets/images/global/default.png" alt="<?= $lang['index_product_1_title'] ?>">
-                        </div>
+                <div class="products-item">
+                    <div class="content">
+                        <h3><?= $lang['index_product_1_title'] ?></h3>
+                        <p><?= $lang['index_product_1_desc'] ?></p>
                     </div>
-
-                    <div class="products-item">
-                        <div class="content">
-                            <h3><?= $lang['index_product_2_title'] ?></h3>
-                            <p>
-                                <?= $lang['index_product_2_desc'] ?>
-                            </p>
-                        </div>
-                        <div class="picture">
-                            <img src="assets/images/global/default.png" alt="<?= $lang['index_product_2_title'] ?>">
-                        </div>
+                    <div class="picture">
+                        <img src="assets/images/products/gao-trang.jpg" alt="<?= $lang['index_product_1_title'] ?>">
                     </div>
-
-                    <div class="products-item">
-                        <div class="content">
-                            <h3><?= $lang['index_product_3_title'] ?></h3>
-                            <p>
-                                <?= $lang['index_product_3_desc'] ?>
-                            </p>
-                        </div>
-                        <div class="picture">
-                            <img src="assets/images/global/default.png" alt="<?= $lang['index_product_3_title'] ?>">
-                        </div>
-                    </div>
-
-                    <div class="products-item">
-                        <div class="content">
-                            <h3><?= $lang['index_product_4_title'] ?></h3>
-                            <p>
-                                <?= $lang['index_product_4_desc'] ?>
-                            </p>
-                        </div>
-                        <div class="picture">
-                            <img src="assets/images/global/default.png" alt="<?= $lang['index_product_4_title'] ?>">
-                        </div>
-                    </div>
-
-                    <div class="products-item">
-                        <div class="content">
-                            <h3><?= $lang['index_product_5_title'] ?></h3>
-                            <p>
-                                <?= $lang['index_product_5_desc'] ?>
-                            </p>
-                        </div>
-                        <div class="picture">
-                            <img src="assets/images/global/default.png" alt="<?= $lang['index_product_5_title'] ?>">
-                        </div>
-                    </div>
-
-                    <div class="products-item">
-                        <div class="content">
-                            <h3><?= $lang['index_product_6_title'] ?></h3>
-                            <p>
-                                <?= $lang['index_product_6_desc'] ?>
-                            </p>
-                        </div>
-                        <div class="picture">
-                            <img src="assets/images/global/default.png" alt="<?= $lang['index_product_6_title'] ?>">
-                        </div>
-                    </div>
-
                 </div>
+
+                <div class="products-item">
+                    <div class="content">
+                        <h3><?= $lang['index_product_2_title'] ?></h3>
+                        <p><?= $lang['index_product_2_desc'] ?></p>
+                    </div>
+                    <div class="picture">
+                        <img src="assets/images/products/gao-thom.jpg" alt="<?= $lang['index_product_2_title'] ?>">
+                    </div>
+                </div>
+
+                <div class="products-item">
+                    <div class="content">
+                        <h3><?= $lang['index_product_3_title'] ?></h3>
+                        <p><?= $lang['index_product_3_desc'] ?></p>
+                    </div>
+                    <div class="picture">
+                        <img src="assets/images/products/gao-st.jpg" alt="<?= $lang['index_product_3_title'] ?>">
+                    </div>
+                </div>
+
+                <div class="products-item">
+                    <div class="content">
+                        <h3><?= $lang['index_product_4_title'] ?></h3>
+                        <p><?= $lang['index_product_4_desc'] ?></p>
+                    </div>
+                    <div class="picture">
+                        <img src="assets/images/products/ca-tra-nguyen-lieu.jpg" alt="<?= $lang['index_product_4_title'] ?>">
+                    </div>
+                </div>
+
+                <div class="products-item">
+                    <div class="content">
+                        <h3><?= $lang['index_product_5_title'] ?></h3>
+                        <p><?= $lang['index_product_5_desc'] ?></p>
+                    </div>
+                    <div class="picture">
+                        <img src="assets/images/products/ca-dieu-hong-nguyen-lieu.jpg" alt="<?= $lang['index_product_5_title'] ?>">
+                    </div>
+                </div>
+
+                <div class="products-item">
+                    <div class="content">
+                        <h3><?= $lang['index_product_6_title'] ?></h3>
+                        <p><?= $lang['index_product_6_desc'] ?></p>
+                    </div>
+                    <div class="picture">
+                        <img src="assets/images/products/lua-nguyen-lieu.png" alt="<?= $lang['index_product_6_title'] ?>">
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

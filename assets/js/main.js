@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // --- 5. Banner slider tự động đọc ảnh từ PHP ---
-    var BANNER_AUTOPLAY_DELAY = 5000; // 👉 Chỉnh thời gian tự chuyển ảnh ở đây (đơn vị: mili giây, 5000 = 5 giây)
+    var BANNER_AUTOPLAY_DELAY = 15000; // 👉 Chỉnh thời gian tự chuyển ảnh ở đây (đơn vị: mili giây, 5000 = 5 giây)
 
     var bannerSection = document.getElementById('bannerSection');
     var bannerPrev = document.getElementById('bannerPrev');
@@ -177,82 +177,71 @@ document.addEventListener('DOMContentLoaded', function () {
         updateAgriNavButtons();
     }
 
-    // --- 7. Slider chuyển qua lại (Fix lỗi lẹm trái do khoảng trống Gap) ---
+    // --- 7. Product slider — state transition (no scroll, class swap only) ---
     var productTrack = document.getElementById('productSlider');
     var prevProdBtn = document.getElementById('prevProduct');
     var nextProdBtn = document.getElementById('nextProduct');
 
     if (productTrack && prevProdBtn && nextProdBtn) {
-        let isAnimating = false; // Khóa nút khi đang chạy hiệu ứng
+        var LOCK_TIME = 700;
+        var locked = false;
+        var items = productTrack.querySelectorAll('.products-item');
+        var totalItems = items.length;
 
-        // Kỹ thuật trượt tới (Next)
-        nextProdBtn.addEventListener('click', function () {
-            if (isAnimating) return;
-            isAnimating = true;
+        function assignPositions() {
+            var all = productTrack.querySelectorAll('.products-item');
+            for (var i = 0; i < all.length; i++) {
+                all[i].classList.remove('is-left', 'is-center', 'is-right');
+            }
+            if (all.length >= 3) {
+                all[0].classList.add('is-left');
+                all[1].classList.add('is-center');
+                all[2].classList.add('is-right');
+            } else if (all.length >= 1) {
+                all[0].classList.add('is-center');
+            }
+        }
 
-            var firstItem = productTrack.firstElementChild;
-            // Tính chính xác chiều rộng thẻ + khoảng hở (gap)
-            var gap = parseFloat(window.getComputedStyle(productTrack).gap) || 0;
-            var scrollAmount = firstItem.offsetWidth + gap; 
+        function initSlider() {
+            if (totalItems < 2) { assignPositions(); return; }
+            // move last card before first so product-1 sits at index 1
+            var last = productTrack.lastElementChild;
+            productTrack.insertBefore(last, productTrack.firstElementChild);
+            assignPositions();
+        }
 
-            // 1. Trượt mượt mà tới thẻ tiếp theo
-            productTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        function slideNext() {
+            if (locked || totalItems < 2) return;
+            locked = true;
 
-            // 2. Đợi trượt xong rồi tráo DOM
-            setTimeout(function() {
-                // Tắt hiệu ứng để giấu việc tráo thẻ
-                productTrack.style.scrollBehavior = 'auto';
-                productTrack.style.scrollSnapType = 'none';
+            var all = productTrack.querySelectorAll('.products-item');
+            for (var i = 0; i < all.length; i++) {
+                all[i].classList.remove('is-left', 'is-center', 'is-right');
+            }
+            productTrack.appendChild(all[0]);
+            assignPositions();
 
-                // Ném thẻ đầu xuống cuối
-                productTrack.appendChild(firstItem);
-                
-                // Do thẻ số 2 đã được đẩy lên vị trí đầu tiên, ta reset trục cuộn về đúng 0
-                productTrack.scrollLeft = 0;
+            setTimeout(function () { locked = false; }, LOCK_TIME);
+        }
 
-                void productTrack.offsetWidth; // Bắt trình duyệt vẽ lại (reflow)
+        function slidePrev() {
+            if (locked || totalItems < 2) return;
+            locked = true;
 
-                // Bật lại hiệu ứng mượt
-                productTrack.style.scrollBehavior = 'smooth';
-                productTrack.style.scrollSnapType = 'x mandatory';
-                
-                isAnimating = false; 
-            }, 500); 
-        });
+            var all = productTrack.querySelectorAll('.products-item');
+            for (var i = 0; i < all.length; i++) {
+                all[i].classList.remove('is-left', 'is-center', 'is-right');
+            }
+            var last = all[all.length - 1];
+            productTrack.insertBefore(last, productTrack.firstElementChild);
+            assignPositions();
 
-        // Kỹ thuật trượt lùi (Prev)
-        prevProdBtn.addEventListener('click', function () {
-            if (isAnimating) return;
-            isAnimating = true;
+            setTimeout(function () { locked = false; }, LOCK_TIME);
+        }
 
-            var lastItem = productTrack.lastElementChild;
-            var gap = parseFloat(window.getComputedStyle(productTrack).gap) || 0;
-            var scrollAmount = lastItem.offsetWidth + gap;
-
-            // 1. Tắt hiệu ứng để âm thầm bốc thẻ cuối lên đầu tiên
-            productTrack.style.scrollBehavior = 'auto';
-            productTrack.style.scrollSnapType = 'none';
-            
-            productTrack.insertBefore(lastItem, productTrack.firstElementChild);
-            
-            // Neo thanh cuộn ở vị trí hiện tại ảo để giao diện không bị giật
-            productTrack.scrollLeft = scrollAmount; 
-
-            void productTrack.offsetWidth; // Reflow
-
-            // 2. Bật lại hiệu ứng mượt
-            productTrack.style.scrollBehavior = 'smooth';
-            productTrack.style.scrollSnapType = 'x mandatory';
-            
-            // 3. Thực hiện kéo mượt về vị trí 0 (thẻ vừa được chèn lên đầu)
-            setTimeout(function() {
-                productTrack.scrollTo({ left: 0, behavior: 'smooth' });
-                
-                setTimeout(function() {
-                    isAnimating = false;
-                }, 500);
-            }, 20);
-        });
+        initSlider();
+        nextProdBtn.addEventListener('click', slideNext);
+        prevProdBtn.addEventListener('click', slidePrev);
     }
 
 });

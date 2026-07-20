@@ -52,7 +52,7 @@ require_once __DIR__ . '/includes/language.php';
             </div>
 
             <div class="picture">
-                <img src="assets/images/index/vietnam-campuchia.png" alt="About Us">
+                <img src="assets/images/about/ve-chung-toi.png" alt="About Us">
             </div>
         </div>
 
@@ -134,7 +134,7 @@ require_once __DIR__ . '/includes/language.php';
                     </p>
                 </div>
                 <div class="picture">
-                    <img src="assets/images/global/default.png" alt="About Us">
+                    <img src="assets/images/about/tam-nhin.jpg" alt="About Us">
                 </div>
             </div>
 
@@ -143,7 +143,7 @@ require_once __DIR__ . '/includes/language.php';
             <div class="container-flex">
                 <div class="container-flex">
                     <div class="picture">
-                        <img src="assets/images/global/default.png" alt="About Us">
+                        <img src="assets/images/about/su-menh.jpg" alt="About Us">
                     </div>
                     <div class="content">
                         <h2>
@@ -174,7 +174,7 @@ require_once __DIR__ . '/includes/language.php';
                     </ul>
                 </div>
                 <div class="picture">
-                    <img src="assets/images/global/default.png" alt="About Us">
+                    <img src="assets/images/about/gia-tri-cot-loi.jpg" alt="About Us">
                 </div>
             </div>
         </div>

@@ -41,24 +41,28 @@
     right: 30px;
 }
 
-.about-section .content {
-    flex: 1;
+/* giới thiệu sơ lược */
+.about-section {
+    background-image: url('../images/index/vietnam-cambodia.png');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 0;
 }
-
-.about-section .picture {
-    flex: 1;
+.section-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    overflow: hidden;
+    margin-bottom: 40px;
 }
 
-.about-section .picture img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: 8px;
+.about-section .title-with-line {
+    border-left: 4px solid #df0012;
+    padding-left: 15px;
+}
+
+
+.about-section .content {
+    width: 50%;
 }
 
 .about-section p {
@@ -72,8 +76,15 @@
     font-size: 4rem;
 }
 
+
+
+/* Giá trị cốt lõi */
+.values-section {
+    
+    padding: 80px 0;
+}
+
 .container-flex.values {
-    margin-top: 60px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -118,11 +129,6 @@
     margin: 0;
     text-align: left;
 }
-/* lĩnh vực hoạt động */
-.activities-section {
-    background-color: var(--bg-light);
-    padding: 60px 0;
-}
 
 .section-header {
     display: flex;
@@ -131,22 +137,7 @@
     margin-bottom: 40px;
 }
 
-.about-section .title-with-line {
-    border-left: 4px solid #df0012;
-    padding-left: 15px;
-}
-
-.title-with-line {
-    font-size: 26px;
-    color: var(--primary-color);
-    /* Màu xanh lá của công ty */
-    text-transform: uppercase;
-    border-left: 4px solid #df0012;
-    padding-left: 15px;
-    margin: 0;
-    font-weight: 600;
-}
-
+/* lĩnh vực hoạt động */
 .activities-section .slider-arrows .arrow-btn {
     background: transparent;
     border: none;
@@ -169,7 +160,6 @@
     gap: 30px;
 }
 
-/* Thiết kế từng Thẻ (Card) */
 .activity-card {
     background-color: var(--white);
     min-height: 450px;
@@ -256,7 +246,176 @@
     color: #d81b22;
 }
 
+/* =====================================================
+   sản phẩm — State‑transition slider (no scroll, pure class swap)
+   ===================================================== */
+.products-section {
+    padding: 60px 0 ;
+    background:
+        linear-gradient(180deg,
+            rgba(177, 223, 183, 0.25) 0%,
+            rgba(255, 255, 255, 1) 35%,
+            rgba(255, 255, 255, 1) 70%,
+            rgba(27, 94, 32, 0.05) 100%);
+    overflow: hidden;
+}
 
+.products-section .section-header {
+    margin-bottom: 28px;
+}
+
+.products-section h2 {
+    color: var(--primary-color);
+}
+
+/* ── Outer wrapper ── */
+.product-slider-outer {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── Track: positioning context, no scroll ── */
+.product-slider-track {
+    position: relative;
+    height: 460px;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* ── Card base: absolute, stacked at center, hidden by default ── */
+.products-item {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    background: var(--white);
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+    /* Default state: hidden behind center */
+    opacity: 0;
+    transform: translateX(-50%) scale(0.85);
+    filter: blur(1px) brightness(0.6);
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+
+    transition:
+        opacity    650ms ease-out,
+        transform  650ms ease-out,
+        filter     650ms ease-out,
+        box-shadow 650ms ease-out;
+    will-change: opacity, transform, filter;
+}
+
+/* ── Left preview card ── */
+.products-item.is-left {
+    opacity: 0.35;
+    transform: translateX(-87%) scale(0.85);
+    filter: blur(1.5px) brightness(0.65);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ── Center card: sharp, prominent ── */
+.products-item.is-center {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    filter: blur(0) brightness(1);
+    z-index: 3;
+    pointer-events: auto;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Right preview card ── */
+.products-item.is-right {
+    opacity: 0.35;
+    transform: translateX(-13%) scale(0.85);
+    filter: blur(1.5px) brightness(0.65);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ── Text column ── */
+.products-item .content {
+    width: 28%;
+    flex-shrink: 0;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.products-item .content h3 {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.products-item .content p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* ── Image column ── */
+.products-item .picture {
+    flex: 1;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.products-item .picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ── Navigation arrows ── */
+.product-slider-outer .arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    background: var(--white);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 17px;
+    color: var(--primary-color);
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-slider-outer .arrow-btn:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 6px 24px rgba(27, 94, 32, 0.3);
+}
+
+.product-slider-outer .arrow-btn--prev {
+    left: max(20px, 3vw);
+}
+
+.product-slider-outer .arrow-btn--next {
+    right: max(20px, 3vw);
+}
+/* tin tức & sự kiện */
 .news-section .container-flex {
     justify-content: space-between;
     align-items: stretch;
@@ -302,99 +461,7 @@
     flex-shrink: 0;
 }
 
-/* sản phẩm */
-.products-section {
-    background: linear-gradient(to bottom, #b1dfb7, #3ba84a);
-}
-
-.products-section h2 {
-    color: var(--white);
-}
-
-.products-item {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-2);
-    background-color: var(--white);
-
-}
-
-.products-section .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.products-section .content {
-    width: 35%;
-    margin-left: var(--spacing-2);
-    margin-top: var(--spacing-2);
-}
-
-.products-section .picture img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
-.product-slider-wrapper {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-/* 2. Biến container-flex thành track trượt ngang */
-.product-slider-track {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    padding: 0;
-    /* Override padding của .container-flex để slider full-width */
-
-    /* Ẩn thanh cuộn mặc định để giao diện sạch sẽ */
-    scrollbar-width: none;
-}
-
-.product-slider-track::-webkit-scrollbar {
-    display: none;
-}
-
-/* 3. Tùy chỉnh các item cũ của bạn để phù hợp slider */
-.product-slider-track .products-item {
-    flex: 0 0 100%;
-    /* Đảm bảo mỗi thẻ hiển thị chiếm 100% không gian hiện tại */
-    scroll-snap-align: start;
-}
-
-/* 4. Định dạng nút mũi tên (Đồng bộ với style trang của bạn) */
-.products-section .slider-arrows .arrow-btn {
-    background: var(--white);
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    /* Nút tròn hiện đại */
-    font-size: 18px;
-    color: var(--primary-color);
-    cursor: pointer;
-    margin-left: 10px;
-    transition: all 0.3s ease;
-    box-shadow: var(--box-shadow);
-}
-
-.products-section .slider-arrows .arrow-btn:hover {
-    background: #144d18;
-    /* Xanh đậm hơn khi hover giống btn-primary */
-    color: var(--white);
-}
-
-/* ============================================================
-   RESPONSIVE – INDEX PAGE
-   ============================================================ */
-
-/* ----- Tablet: ≤ 992px ----- */
+/* REPONSIVE */
 @media (max-width: 992px) {
 
     /* --- Banner --- */
@@ -453,14 +520,47 @@
     }
 
     /* --- Products --- */
-    .products-section .content {
-        width: 45%;
+    .product-slider-track {
+        height: 380px;
     }
 
-    .products-section .slider-arrows .arrow-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 16px;
+    .products-item {
+        width: 75%;
+    }
+
+    .products-item.is-left {
+        transform: translateX(-90%) scale(0.85);
+    }
+
+    .products-item.is-right {
+        transform: translateX(-10%) scale(0.85);
+    }
+
+    .products-item .content {
+        width: 32%;
+        padding: 24px 18px;
+    }
+
+    .products-item .content h3 {
+        font-size: 1.1rem;
+    }
+
+    .products-item .content p {
+        font-size: 0.82rem;
+    }
+
+    .product-slider-outer .arrow-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 15px;
+    }
+
+    .product-slider-outer .arrow-btn--prev {
+        left: max(12px, 2vw);
+    }
+
+    .product-slider-outer .arrow-btn--next {
+        right: max(12px, 2vw);
     }
 
     /* --- News --- */
@@ -583,34 +683,62 @@
     }
 
     /* --- Products --- */
-    .products-section .content {
-        width: 100%;
-        margin: var(--spacing-2);
+    .products-section {
+        padding: 40px 0 0;
+    }
+
+    .product-slider-track {
+        height: auto;
+        min-height: 440px;
     }
 
     .products-item {
+        width: 88%;
         flex-direction: column-reverse;
+        height: auto;
+        min-height: 440px;
     }
 
-    .products-section .picture {
+    .products-item.is-left {
+        transform: translateX(-93%) scale(0.88);
+    }
+
+    .products-item.is-right {
+        transform: translateX(-7%) scale(0.88);
+    }
+
+    .products-item .content {
         width: 100%;
-        height: 220px;
+        padding: 18px 16px;
+        flex-shrink: 1;
     }
 
-    .products-section .picture img {
-        height: 100%;
-        object-fit: cover;
+    .products-item .content h3 {
+        font-size: 1.05rem;
+        margin-bottom: 8px;
     }
 
-    .products-section .slider-arrows .arrow-btn {
-        width: 34px;
-        height: 34px;
+    .products-item .content p {
+        font-size: 0.8rem;
+    }
+
+    .products-item .picture {
+        height: 240px;
+        flex: none;
+    }
+
+    .product-slider-outer .arrow-btn {
+        width: 36px;
+        height: 36px;
         font-size: 14px;
-        margin-left: 6px;
     }
 
-    .product-slider-wrapper {
-        border-radius: var(--border-radius);
+    .product-slider-outer .arrow-btn--prev {
+        left: max(8px, 1.5vw);
+    }
+
+    .product-slider-outer .arrow-btn--next {
+        right: max(8px, 1.5vw);
     }
 
     /* --- News --- */
