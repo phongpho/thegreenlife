@@ -28,13 +28,14 @@ RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf 
     && sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/000-default.conf
 
 # ── 5. Cấu hình PHP session path ────────────────────────────
-# Container thường không có quyền ghi /var/lib/php/sessions mặc định
-# → Tạo thư mục riêng với đúng owner là www-data
-RUN mkdir -p /tmp/php_sessions \
-    && chown www-data:www-data /tmp/php_sessions \
-    && chmod 755 /tmp/php_sessions
+# DÙNG /var/www/html/tmp/sessions thay vì /tmp vì:
+#   - Render xóa /tmp mỗi lần khởi động container
+#   - Thư mục trong app tồn tại vĩnh viễn (persistent disk)
+RUN mkdir -p /var/www/html/tmp/sessions \
+    && chown www-data:www-data /var/www/html/tmp/sessions \
+    && chmod 755 /var/www/html/tmp/sessions
 RUN { \
-        echo 'session.save_path = /tmp/php_sessions'; \
+        echo 'session.save_path = /var/www/html/tmp/sessions'; \
         echo 'session.gc_probability = 1'; \
     } > /usr/local/etc/php/conf.d/sessions.ini
 
@@ -71,3 +72,11 @@ RUN chown -R www-data:www-data /var/www/html/
 # ── 11. Expose port 80 ──────────────────────────────────────
 # Render tự động map PORT env → 80 trong container
 EXPOSE 80
+
+# ── 12. Entrypoint ──────────────────────────────────────────
+# entrypoint.sh chạy khi container start, tạo thư mục session
+# tại runtime (cần thiết vì Render mount persistent disk đè
+# lên /var/www/html sau khi build)
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
