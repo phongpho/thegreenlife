@@ -36,11 +36,12 @@
     padding-left: 15px;
 }
 
-
-
+.values-section {
+    
+    padding: 80px 0;
+}
 
 .container-flex.values {
-    margin-top: 60px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -84,6 +85,13 @@
     font-size: 15px;
     margin: 0;
     text-align: left;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
 }
 
 /* tầm nhìn sứ mệnh giá trị cốt lõi */

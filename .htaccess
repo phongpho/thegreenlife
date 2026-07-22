@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# ── Chặn truy cập trực tiếp vào file nhạy cảm ──────────────────
+<FilesMatch "^(\.env|composer\.(json|lock)|Dockerfile|start\.bat)$">
+    Require all denied
+</FilesMatch>
+
+# ── Chặn truy cập vào thư mục nội bộ ──────────────────────────
+RedirectMatch 403 ^/(vendor|config|logs)/
+
+# ── Rewrite (dự phòng cho sau này) ────────────────────────────
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

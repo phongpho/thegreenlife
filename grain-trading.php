@@ -9,7 +9,7 @@ require_once __DIR__ . '/includes/language.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Green Life
-        <?= $currentLang === 'vi' ? ' | Trang chủ' : ' | Home' ?>
+        <?= $currentLang === 'vi' ? ' | Xuất nhập khẩu & Chế biến' : ' | Import-Export & Processing' ?>
     </title>
     <!-- <meta name="description" content="<?= htmlspecialchars($lang['home_hero_desc']) ?>"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,19 +28,19 @@ require_once __DIR__ . '/includes/language.php';
         <div class="container">
             <div class="title-page">
                 <h1>
-                    XUẤT NHẬP KHẨU & CHẾ BIẾN 
+                    <?= $lang['grain_banner_title'] ?>
                 </h1>
 
                 <div class="breadcrumb">
 
-                    <a href="index.php">Trang chủ</a>
+                    <a href="index.php"><?= $lang['breadcrumb_home'] ?></a>
 
                     
 
                     <span>/</span>
 
                     <span class="current">
-                        Xuất nhập khẩu & Chế biến 
+                        <?= $lang['grain_breadcrumb'] ?>
                     </span>
 
                 </div>
@@ -53,19 +53,17 @@ require_once __DIR__ . '/includes/language.php';
 
     <div class="section pic-section">
         <div class="container">
-            <h2 class="title-with-line">Xuất nhập khẩu và chế biến</h2>
+            <h2 class="title-with-line"><?= $lang['grain_section_title'] ?></h2>
 
             <div class="img-first">
                 <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png"
                     alt="xuất nhập khẩu và chế biến lương thực.">
 
                 <div class="overview-card">
-                    <h2>TỔNG QUAN</h2>
+                    <h2><?= $lang['grain_overview_title'] ?></h2>
 
                     <p>
-                        Lĩnh vực kinh doanh cốt lõi, chiếm khoảng <span>80%</span> giá trị doanh nghiệp — thu mua, chế
-                        biến, xuất
-                        nhập khẩu lúa gạo và các sản phẩm nông nghiệp.
+                        <?= $lang['grain_overview_desc'] ?>
                     </p>
                 </div>
             </div>
@@ -82,11 +80,9 @@ require_once __DIR__ . '/includes/language.php';
 
             <div class="capability-left">
 
-                <h2 class="title-with-line">Năng lực sản xuất</h2>
+                <h2 class="title-with-line"><?= $lang['grain_capability_title'] ?></h2>
                 <p>
-                    Hệ thống nhà máy, kho vận và vùng nguyên liệu
-                    được đầu tư đồng bộ, đáp ứng nhu cầu thị trường
-                    trong nước và quốc tế.
+                    <?= $lang['grain_capability_desc'] ?>
                 </p>
 
                 <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
@@ -100,8 +96,8 @@ require_once __DIR__ . '/includes/language.php';
                     <span class="number">01</span>
 
                     <div class="content">
-                        <h3>20 ha</h3>
-                        <p>Nhà máy chế biến lương thực với tổng diện tích trên 20 ha.</p>
+                        <h3><?= $lang['grain_cap_1_title'] ?></h3>
+                        <p><?= $lang['grain_cap_1_desc'] ?></p>
                     </div>
 
                     <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
@@ -113,8 +109,8 @@ require_once __DIR__ . '/includes/language.php';
                     <span class="number">02</span>
 
                     <div class="content">
-                        <h3>1.200 tấn/ngày</h3>
-                        <p>Hệ thống sấy lúa công suất 1.200 tấn mỗi ngày.</p>
+                        <h3><?= $lang['grain_cap_2_title'] ?></h3>
+                        <p><?= $lang['grain_cap_2_desc'] ?></p>
                     </div>
 
                     <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
@@ -126,8 +122,8 @@ require_once __DIR__ . '/includes/language.php';
                     <span class="number">03</span>
 
                     <div class="content">
-                        <h3>500-600 tấn/ngày</h3>
-                        <p>Hệ thống lau bóng gạo hiện đại, nâng cao chất lượng thành phẩm.</p>
+                        <h3><?= $lang['grain_cap_3_title'] ?></h3>
+                        <p><?= $lang['grain_cap_3_desc'] ?></p>
                     </div>
 
                     <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
@@ -139,8 +135,8 @@ require_once __DIR__ . '/includes/language.php';
                     <span class="number">04</span>
 
                     <div class="content">
-                        <h3>Kho chứa & Logistics</h3>
-                        <p>Hệ thống kho chứa và logistics phục vụ hoạt động xuất nhập khẩu.</p>
+                        <h3><?= $lang['grain_cap_4_title'] ?></h3>
+                        <p><?= $lang['grain_cap_4_desc'] ?></p>
                     </div>
 
                     <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
@@ -152,8 +148,8 @@ require_once __DIR__ . '/includes/language.php';
                     <span class="number">05</span>
 
                     <div class="content">
-                        <h3>Đồng bằng sông Cửu Long & Campuchia</h3>
-                        <p>Hệ thống liên kết vùng nguyên liệu ổn định, đáp ứng nhu cầu sản xuất quy mô lớn.</p>
+                        <h3><?= $lang['grain_cap_5_title'] ?></h3>
+                        <p><?= $lang['grain_cap_5_desc'] ?></p>
                     </div>
 
                     <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
@@ -165,8 +161,8 @@ require_once __DIR__ . '/includes/language.php';
                     <span class="number">06</span>
 
                     <div class="content">
-                        <h3>Đối tác chiến lược</h3>
-                        <p>Hợp tác với các doanh nghiệp sản xuất, thu mua và xuất khẩu lớn tại Campuchia.</p>
+                        <h3><?= $lang['grain_cap_6_title'] ?></h3>
+                        <p><?= $lang['grain_cap_6_desc'] ?></p>
                     </div>
 
                     <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
@@ -183,19 +179,16 @@ require_once __DIR__ . '/includes/language.php';
     <div class="section trading-section">
 
         <div class=" container trading-wrapper">
-            <h2 class="title-with-line">Năng lực thương mại</h2>
+            <h2 class="title-with-line"><?= $lang['grain_trading_title'] ?></h2>
             <div class="trading-header">
 
                 <div class="heading">
                     <h3>
-                        Kết nối giá trị nông sản
-                        với thị trường toàn cầu
+                        <?= $lang['grain_trading_heading'] ?>
                     </h3>
 
                     <p>
-                        Với năng lực xuất nhập khẩu ổn định và mạng lưới đối tác rộng khắp,
-                        THE GREEN LIFE không ngừng mở rộng thị trường, mang đến những sản phẩm
-                        chất lượng cao cho khách hàng trong nước và quốc tế.
+                        <?= $lang['grain_trading_desc'] ?>
                     </p>
 
                 </div>
@@ -203,16 +196,15 @@ require_once __DIR__ . '/includes/language.php';
                 <div class="trading-stat">
 
                     <span class="number">
-                        20
+                        <?= $lang['grain_trading_stat_number'] ?>
                     </span>
 
                     <span class="unit">
-                        TRIỆU USD
+                        <?= $lang['grain_trading_stat_unit'] ?>
                     </span>
 
                     <p>
-                        Kim ngạch xuất nhập khẩu
-                        lúa gạo mỗi năm
+                        <?= $lang['grain_trading_stat_desc'] ?>
                     </p>
 
                 </div>
@@ -227,7 +219,7 @@ require_once __DIR__ . '/includes/language.php';
 
             <div class="product-gallery">
 
-                <h3 class="section-title">SẢN PHẨM CHỦ LỰC</h3>
+                <h3 class="section-title"><?= $lang['grain_products_title'] ?></h3>
 
                 <div class="products-wrapper">
                     <button class="products-nav products-nav--prev" aria-label="Previous">
@@ -239,32 +231,32 @@ require_once __DIR__ . '/includes/language.php';
 
                             <div class="product">
                                 <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
-                                <span>GẠO TRẮNG</span>
+                                <span><?= $lang['grain_product_1'] ?></span>
                             </div>
 
                             <div class="product">
                                 <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
-                                <span>GẠO THƠM</span>
+                                <span><?= $lang['grain_product_2'] ?></span>
                             </div>
 
                             <div class="product">
                                 <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
-                                <span>GẠO ST</span>
+                                <span><?= $lang['grain_product_3'] ?></span>
                             </div>
 
                             <div class="product">
                                 <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
-                                <span>GẠO CHẤT LƯỢNG CAO</span>
+                                <span><?= $lang['grain_product_4'] ?></span>
                             </div>
 
                             <div class="product">
                                 <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
-                                <span>LÚA NGUYÊN LIỆU</span>
+                                <span><?= $lang['grain_product_5'] ?></span>
                             </div>
 
                             <div class="product">
                                 <img src="assets/images/agriculture/xuat-nhap-khau-va-che-bien-luong-thuc.png">
-                                <span>NÔNG SẢN KHÁC</span>
+                                <span><?= $lang['grain_product_6'] ?></span>
                             </div>
 
                         </div>
@@ -279,7 +271,7 @@ require_once __DIR__ . '/includes/language.php';
 
             <div class="trade-process">
 
-                <h3 class="section-title">QUY TRÌNH THƯƠNG MẠI</h3>
+                <h3 class="section-title"><?= $lang['grain_process_title'] ?></h3>
 
                 <div class="process">
 
@@ -288,10 +280,10 @@ require_once __DIR__ . '/includes/language.php';
                             <i class="fa-solid fa-seedling"></i>
                         </div>
 
-                        <h4>Vùng nguyên liệu</h4>
+                        <h4><?= $lang['grain_step_1_title'] ?></h4>
 
                         <p>
-                            Liên kết vùng nguyên liệu tại Đồng bằng sông Cửu Long và Campuchia.
+                            <?= $lang['grain_step_1_desc'] ?>
                         </p>
                     </div>
 
@@ -304,10 +296,10 @@ require_once __DIR__ . '/includes/language.php';
                             <i class="fa-solid fa-industry"></i>
                         </div>
 
-                        <h4>Chế biến hiện đại</h4>
+                        <h4><?= $lang['grain_step_2_title'] ?></h4>
 
                         <p>
-                            Hệ thống nhà máy đảm bảo chất lượng và truy xuất nguồn gốc.
+                            <?= $lang['grain_step_2_desc'] ?>
                         </p>
                     </div>
 
@@ -320,10 +312,10 @@ require_once __DIR__ . '/includes/language.php';
                             <i class="fa-solid fa-truck-fast"></i>
                         </div>
 
-                        <h4>Kho vận & Logistics</h4>
+                        <h4><?= $lang['grain_step_3_title'] ?></h4>
 
                         <p>
-                            Hệ thống kho bãi và logistics đáp ứng mọi yêu cầu xuất nhập khẩu.
+                            <?= $lang['grain_step_3_desc'] ?>
                         </p>
                     </div>
 
@@ -336,10 +328,10 @@ require_once __DIR__ . '/includes/language.php';
                             <i class="fa-solid fa-ship"></i>
                         </div>
 
-                        <h4>Xuất khẩu</h4>
+                        <h4><?= $lang['grain_step_4_title'] ?></h4>
 
                         <p>
-                            Vận chuyển đến các thị trường trong nước và quốc tế.
+                            <?= $lang['grain_step_4_desc'] ?>
                         </p>
                     </div>
 
@@ -352,10 +344,10 @@ require_once __DIR__ . '/includes/language.php';
                             <i class="fa-solid fa-handshake"></i>
                         </div>
 
-                        <h4>Đối tác toàn cầu</h4>
+                        <h4><?= $lang['grain_step_5_title'] ?></h4>
 
                         <p>
-                            Mạng lưới đối tác và khách hàng tại nhiều quốc gia.
+                            <?= $lang['grain_step_5_desc'] ?>
                         </p>
                     </div>
 

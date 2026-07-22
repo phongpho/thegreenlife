@@ -1,10 +1,13 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
 ?>
-<header class="site-header" id="siteHeader">
+<header id="siteHeader" class="site-header">
     <div class="container header-container">
+        
         <a href="index.php" class="logo">
-            <span class="logo-text">THE <strong>GREEN</strong> LIFE</span>
+            <div class="logo-card">
+                <img src="assets/images/global/the-green-life-logo.png" alt="The Green Life" class="logo-img">
+            </div>
         </a>
 
         <button class="navbar-toggle" id="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +63,20 @@ $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
                 </li>
             </ul>
 
-
+            <!-- Language switcher inside mobile menu -->
+            <div class="nav-lang-mobile">
+                <div class="lang-switcher">
+                    <a href="<?= lang_switch_url('vi') ?>" class="<?= $currentLang === 'vi' ? 'active' : '' ?>">
+                        <img src="https://flagcdn.com/16x12/vn.png" width="16" height="12" alt="VI" class="flag-icon">
+                        Tiếng Việt
+                    </a>
+                    <span class="divider">|</span>
+                    <a href="<?= lang_switch_url('en') ?>" class="<?= $currentLang === 'en' ? 'active' : '' ?>">
+                        English
+                        <img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN" class="flag-icon">
+                    </a>
+                </div>
+            </div>
         </nav>
 
         <div class="nav-utils">

@@ -1,0 +1,722 @@
+/* =============================================================
+   CONTACT PAGE — The Green Life
+   Tuân thủ Design System: CSS variables, spacing, typography,
+   convention từ style.css và các trang hiện có.
+   ============================================================= */
+
+/* ---------- 1. Banner ---------- */
+.banner-section {
+    background-image: url('../images/banner/banner-2.jpg');
+    margin-top: 70px;
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    transition: background-image 0.4s ease-in-out;
+    position: relative;
+}
+
+.banner-section .container {
+    position: relative;
+    height: 100%;
+}
+
+.title-page {
+    position: absolute;
+    color: var(--white);
+    bottom: 50px;
+    left: 0;
+}
+
+.title-page h1,
+.title-page a {
+    color: var(--white);
+}
+
+.title-page .current {
+    color: var(--white);
+}
+
+.title-page span {
+    color: var(--text-main);
+}
+
+
+/* ---------- 2. Form liên hệ + Thông tin công ty ---------- */
+.contact-form-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.contact-form-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.contact-form-col,
+.contact-info-col {
+    width: 100%;
+}
+
+.form-desc {
+    color: var(--text-light);
+    margin-top: var(--spacing-1);
+    margin-bottom: var(--spacing-3);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* ── Form ── */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.form-group .required {
+    color: #df0012;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-family: var(--font-primary);
+    font-size: 15px;
+    color: var(--text-main);
+    background-color: #fafafa;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    outline: none;
+    width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.08);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #b0b0b0;
+}
+
+.form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+.btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: var(--spacing-1);
+    transition: all 0.3s ease;
+}
+
+.btn-submit i {
+    transition: transform 0.3s ease;
+}
+
+.btn-submit:hover i {
+    transform: translateX(4px);
+}
+
+.btn-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* ── Form response message ── */
+.form-response {
+    padding: 14px 18px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.form-response--success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.form-response--error {
+    background-color: #fbe9e7;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+/* ── Thông tin liên hệ ── */
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    margin-top: var(--spacing-1);
+}
+
+.info-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+}
+
+.info-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.info-icon i {
+    font-size: 18px;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.info-item:hover .info-icon {
+    background-color: var(--primary-color);
+}
+
+.info-item:hover .info-icon i {
+    color: var(--white);
+}
+
+.info-text h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.info-text p {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.info-text a {
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+
+.info-text a:hover {
+    color: var(--primary-color);
+}
+
+
+/* ---------- 3. Liên hệ theo bộ phận ---------- */
+.departments-section {
+    padding: 80px 0;
+    background-color: var(--bg-light);
+}
+
+.departments-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.dept-card {
+    background-color: var(--white);
+    border: 1px solid #eaeaea;
+    border-radius: var(--border-radius);
+    padding: 35px 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.dept-card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    border-color: #c8e6c9;
+    transform: translateY(-4px);
+}
+
+.dept-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: #edf7ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.dept-icon i {
+    font-size: 24px;
+    color: var(--primary-color);
+}
+
+.dept-card:hover .dept-icon {
+    background-color: var(--primary-color);
+}
+
+.dept-card:hover .dept-icon i {
+    color: var(--white);
+}
+
+.dept-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.dept-card p {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0 0 18px;
+    flex: 1;
+}
+
+.dept-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-color);
+    padding: 8px 18px;
+    border: 1px solid var(--primary-color);
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.dept-phone:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+
+/* ---------- 4. Hình ảnh văn phòng ---------- */
+.office-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.office-gallery {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    grid-template-rows: 350px;
+    gap: 16px;
+}
+
+.office-img {
+    overflow: hidden;
+    border-radius: var(--border-radius);
+}
+
+.office-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.office-img:hover img {
+    transform: scale(1.05);
+}
+
+
+/* ---------- 5. Google Maps ---------- */
+.map-section {
+    padding: 0 0 0 0;
+    background-color: var(--white);
+}
+
+.map-section .section-header {
+    margin-bottom: 24px;
+}
+
+.map-container {
+    width: 100%;
+    line-height: 0;
+}
+
+.map-container iframe {
+    display: block;
+    width: 100%;
+    height: 450px;
+    border: 0;
+}
+
+
+/* ---------- 6. FAQ ---------- */
+.faq-section {
+    padding: 80px 0;
+    background-color: var(--bg-light);
+}
+
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+}
+
+.faq-item {
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.faq-item.is-open {
+    border-color: var(--primary-color);
+}
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: left;
+    gap: 16px;
+    transition: color 0.3s ease;
+}
+
+.faq-question span {
+    flex: 1;
+}
+
+.faq-question i {
+    font-size: 14px;
+    color: var(--primary-color);
+    transition: transform 0.35s ease;
+    flex-shrink: 0;
+}
+
+.faq-item.is-open .faq-question {
+    color: var(--primary-color);
+}
+
+.faq-item.is-open .faq-question i {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.faq-item.is-open .faq-answer {
+    max-height: 500px;
+}
+
+.faq-answer p {
+    padding: 0 24px 20px;
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin: 0;
+}
+
+
+/* ---------- 7. CTA ---------- */
+.cta-section {
+    background-image: url('../images/banner/banner-3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(27, 94, 32, 0.85) 0%, rgba(0, 0, 0, 0.5) 100%);
+    z-index: 1;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: var(--spacing-2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cta-content p {
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-3);
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background-color: var(--secondary-color);
+    color: var(--text-main);
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: #e5a921;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cta-btn i {
+    transition: transform 0.3s ease;
+}
+
+.cta-btn:hover i {
+    transform: translateX(4px);
+}
+
+
+/* ============================================================
+   RESPONSIVE – CONTACT PAGE
+   ============================================================ */
+
+/* ----- Tablet: ≤ 992px ----- */
+@media (max-width: 992px) {
+
+    /* Banner */
+    .banner-section {
+        height: 380px;
+    }
+
+    .title-page h1 {
+        font-size: 2.2rem;
+    }
+
+    /* Form layout */
+    .contact-form-layout {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    /* Departments */
+    .departments-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    /* Office gallery */
+    .office-gallery {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 250px 250px;
+    }
+
+    .office-img.main-img {
+        grid-column: 1 / -1;
+    }
+
+    /* CTA */
+    .cta-content h2 {
+        font-size: 2rem;
+    }
+
+    .cta-section {
+        background-attachment: scroll;
+    }
+}
+
+/* ----- Mobile: ≤ 768px ----- */
+@media (max-width: 768px) {
+
+    /* Banner */
+    .banner-section {
+        height: 280px;
+        margin-top: 56px;
+    }
+
+    .title-page {
+        bottom: 30px;
+    }
+
+    .title-page h1 {
+        font-size: 1.8rem;
+    }
+
+    .breadcrumb {
+        font-size: 13px;
+    }
+
+    /* Form */
+    .contact-form-section {
+        padding: 50px 0;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-submit {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Departments */
+    .departments-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .dept-card {
+        padding: 28px 20px;
+    }
+
+    /* Office gallery */
+    .office-gallery {
+        grid-template-columns: 1fr;
+        grid-template-rows: 220px 220px 220px;
+    }
+
+    .office-img.main-img {
+        grid-column: auto;
+    }
+
+    /* Map */
+    .map-container iframe {
+        height: 350px;
+    }
+
+    /* FAQ */
+    .faq-question {
+        font-size: 15px;
+        padding: 16px 18px;
+    }
+
+    .faq-answer p {
+        font-size: 14px;
+        padding: 0 18px 16px;
+    }
+
+    /* CTA */
+    .cta-section {
+        padding: 70px 0;
+    }
+
+    .cta-content h2 {
+        font-size: 1.6rem;
+    }
+
+    .cta-content p {
+        font-size: 15px;
+    }
+}
+
+/* ----- Small phones: ≤ 480px ----- */
+@media (max-width: 480px) {
+
+    .banner-section {
+        height: 220px;
+        margin-top: 52px;
+    }
+
+    .title-page {
+        bottom: 20px;
+    }
+
+    .title-page h1 {
+        font-size: 1.4rem;
+    }
+
+    .breadcrumb {
+        font-size: 12px;
+    }
+
+    .contact-form-section {
+        padding: 40px 0;
+    }
+
+    .title-with-line {
+        font-size: 18px;
+    }
+
+    .office-gallery {
+        grid-template-rows: 180px 180px 180px;
+    }
+
+    .cta-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .cta-btn {
+        padding: 14px 28px;
+        font-size: 14px;
+    }
+}

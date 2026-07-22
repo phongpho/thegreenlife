@@ -1,0 +1,18 @@
+{
+    "name": "thegreenlife/website",
+    "description": "The Green Life - Agricultural & Seafood Trading Website",
+    "type": "project",
+    "require": {
+        "php": ">=8.0",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "files": [
+            "config/mail.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}

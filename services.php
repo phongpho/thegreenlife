@@ -9,7 +9,7 @@ require_once __DIR__ . '/includes/language.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Green Life
-        <?= $currentLang === 'vi' ? ' | Thủy sản nguyên liệu' : ' | Seafood' ?>
+        <?= $currentLang === 'vi' ? ' | Thương mại dịch vụ – Lưu trú – Nhà hàng' : ' | Trade Services & Hospitality' ?>
     </title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,19 +27,19 @@ require_once __DIR__ . '/includes/language.php';
         <div class="container">
             <div class="title-page">
                 <h1>
-                    Thương mại dịch vụ – Lưu trú – Nhà hàng
+                    <?= $lang['services_banner_title'] ?>
 
                 </h1>
 
                 <div class="breadcrumb">
 
-                    <a href="index.php">Trang chủ</a>
+                    <a href="index.php"><?= $lang['breadcrumb_home'] ?></a>
 
                     <span>/</span>
 
 
                     <span class="current">
-                        Thương mại dịch vụ - Lưu trú - Nhà hàng
+                        <?= $lang['services_breadcrumb'] ?>
 
                     </span>
 
@@ -55,13 +55,11 @@ require_once __DIR__ . '/includes/language.php';
                 <!-- Cột trái: Tiêu đề giới thiệu -->
                 <div class="ecosystem-intro">
                     <div class="section-header">
-                        <h2 class="title-with-line">hệ sinh thái dịch vụ</h2>
+                        <h2 class="title-with-line"><?= $lang['services_ecosystem_title'] ?></h2>
                     </div>
-                    <h2 class="section-title">Đa dạng dịch vụ –<br>Kết nối giá trị</h2>
+                    <h2 class="section-title"><?= $lang['services_ecosystem_heading'] ?></h2>
                     <p class="section-desc">
-                        Chúng tôi cung cấp giải pháp dịch vụ toàn diện, kết hợp giữa chất lượng, trải nghiệm và sự kết
-                        nối
-                        để mang lại giá trị bền vững cho khách hàng và cộng đồng.
+                        <?= $lang['services_ecosystem_desc'] ?>
                     </p>
                 </div>
 
@@ -71,19 +69,19 @@ require_once __DIR__ . '/includes/language.php';
                     <div class="ecosystem-steps">
                         <div class="step-item">
                             <div class="step-icon"><i class="fa-solid fa-bed"></i></div>
-                            <h4>Dịch vụ lưu trú</h4>
+                            <h4><?= $lang['services_step_1'] ?></h4>
                         </div>
                         <div class="step-item">
                             <div class="step-icon"><i class="fa-solid fa-bell-concierge"></i></div>
-                            <h4>Nhà hàng</h4>
+                            <h4><?= $lang['services_step_2'] ?></h4>
                         </div>
                         <div class="step-item">
                             <div class="step-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                            <h4>Thương mại dịch vụ<br>tổng hợp</h4>
+                            <h4><?= $lang['services_step_3'] ?></h4>
                         </div>
                         <div class="step-item">
                             <div class="step-icon"><i class="fa-solid fa-handshake"></i></div>
-                            <h4>Kết nối giao thương<br>và xúc tiến thương mại</h4>
+                            <h4><?= $lang['services_step_4'] ?></h4>
                         </div>
                     </div>
 
@@ -93,25 +91,25 @@ require_once __DIR__ . '/includes/language.php';
                             <div class="img-wrapper">
                                 <img src="assets/images/index/quy-trinh-xuat-nhap-khau.jpg" alt="Dịch vụ lưu trú">
                             </div>
-                            <p>Không gian lưu trú tiện nghi, đẳng cấp và thân thiện.</p>
+                            <p><?= $lang['services_gallery_1_desc'] ?></p>
                         </div>
                         <div class="gallery-card">
                             <div class="img-wrapper">
                                 <img src="assets/images/index/quy-trinh-xuat-nhap-khau.jpg" alt="Nhà hàng">
                             </div>
-                            <p>Ẩm thực đa dạng, chất lượng và an toàn.</p>
+                            <p><?= $lang['services_gallery_2_desc'] ?></p>
                         </div>
                         <div class="gallery-card">
                             <div class="img-wrapper">
                                 <img src="assets/images/index/quy-trinh-xuat-nhap-khau.jpg" alt="Thương mại tổng hợp">
                             </div>
-                            <p>Đáp ứng nhu cầu mua sắm, giải trí và các dịch vụ tiện ích.</p>
+                            <p><?= $lang['services_gallery_3_desc'] ?></p>
                         </div>
                         <div class="gallery-card">
                             <div class="img-wrapper">
                                 <img src="assets/images/index/quy-trinh-xuat-nhap-khau.jpg" alt="Xúc tiến thương mại">
                             </div>
-                            <p>Mở rộng cơ hội hợp tác và phát triển bền vững.</p>
+                            <p><?= $lang['services_gallery_4_desc'] ?></p>
                         </div>
                     </div>
                 </div>
@@ -121,7 +119,7 @@ require_once __DIR__ . '/includes/language.php';
 
     <div class="section core-services-section">
         <div class="container">
-            <h2 class="core-section-title">Chi tiết dịch vụ</h2>
+            <h2 class="core-section-title"><?= $lang['services_core_title'] ?></h2>
 
             <div class="core-services-grid">
                 <!-- Card 01 -->
@@ -129,13 +127,12 @@ require_once __DIR__ . '/includes/language.php';
                     <div class="card-header">
                         <span class="card-num">01</span>
                         <span class="card-divider"></span>
-                        <h3>Dịch vụ lưu trú</h3>
+                        <h3><?= $lang['services_core_1_title'] ?></h3>
                     </div>
                     <div class="card-img">
                         <img src="assets/images/index/quy-trinh-xuat-nhap-khau.jpg" alt="Dịch vụ lưu trú">
                     </div>
-                    <p class="card-desc">Hệ thống lưu trú đạt tiêu chuẩn, mang đến trải nghiệm thoải mái, tiện nghi cho
-                        khách hàng.</p>
+                    <p class="card-desc"><?= $lang['services_core_1_desc'] ?></p>
                 </div>
 
                 <!-- Card 02 -->
@@ -143,13 +140,12 @@ require_once __DIR__ . '/includes/language.php';
                     <div class="card-header">
                         <span class="card-num">02</span>
                         <span class="card-divider"></span>
-                        <h3>Nhà hàng</h3>
+                        <h3><?= $lang['services_core_2_title'] ?></h3>
                     </div>
                     <div class="card-img">
                         <img src="assets/images/index/quy-trinh-xuat-nhap-khau.jpg" alt="Nhà hàng">
                     </div>
-                    <p class="card-desc">Nhà hàng với thực đơn phong phú, nguyên liệu tươi ngon, không gian sang trọng
-                        và dịch vụ chuyên nghiệp.</p>
+                    <p class="card-desc"><?= $lang['services_core_2_desc'] ?></p>
                 </div>
 
                 <!-- Card 03 -->
@@ -157,13 +153,12 @@ require_once __DIR__ . '/includes/language.php';
                     <div class="card-header">
                         <span class="card-num">03</span>
                         <span class="card-divider"></span>
-                        <h3>Thương mại dịch vụ tổng hợp</h3>
+                        <h3><?= $lang['services_core_3_title'] ?></h3>
                     </div>
                     <div class="card-img">
                         <img src="assets/images/index/quy-trinh-xuat-nhap-khau.jpg" alt="Thương mại dịch vụ tổng hợp">
                     </div>
-                    <p class="card-desc">Cung cấp đa dạng sản phẩm, dịch vụ từ mua sắm, giải trí đến các tiện ích đáp
-                        ứng mọi nhu cầu.</p>
+                    <p class="card-desc"><?= $lang['services_core_3_desc'] ?></p>
                 </div>
 
                 <!-- Card 04 -->
@@ -171,13 +166,12 @@ require_once __DIR__ . '/includes/language.php';
                     <div class="card-header">
                         <span class="card-num">04</span>
                         <span class="card-divider"></span>
-                        <h3>Kết nối giao thương và xúc tiến thương mại</h3>
+                        <h3><?= $lang['services_core_4_title'] ?></h3>
                     </div>
                     <div class="card-img">
                         <img src="assets/images/index/quy-trinh-xuat-nhap-khau.jpg" alt="Kết nối giao thương">
                     </div>
-                    <p class="card-desc">Tổ chức các hoạt động kết nối, sự kiện và chương trình xúc tiến thương mại
-                        trong và ngoài nước.</p>
+                    <p class="card-desc"><?= $lang['services_core_4_desc'] ?></p>
                 </div>
             </div>
         </div>
@@ -187,10 +181,9 @@ require_once __DIR__ . '/includes/language.php';
     <section class="section network-section">
         <div class="container">
             <div class="network-content">
-                <h2 class="network-title">Mạng lưới kết nối</h2>
+                <h2 class="network-title"><?= $lang['services_network_title'] ?></h2>
                 <p class="network-desc">
-                    THE GREEN LIFE không ngừng mở rộng mạng lưới đối tác và khách hàng,
-                    hướng đến sự phát triển bền vững và cùng nhau thịnh vượng.
+                    <?= $lang['services_network_desc'] ?>
                 </p>
 
             </div>
