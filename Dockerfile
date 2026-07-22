@@ -1,32 +1,73 @@
-# Sử dụng hình ảnh PHP chính thức tích hợp sẵn máy chủ Apache
+# ============================================================
+# The Green Life - Production Dockerfile
+# Target: Render Web Service (php:8.2-apache)
+# ============================================================
 FROM php:8.2-apache
 
-# Cài đặt unzip (cần cho Composer --prefer-dist) và PHP extensions
-RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
+# ── 1. Cài system packages ──────────────────────────────────
+# libzip-dev : thư viện C để compile PHP zip extension
+# unzip      : command-line tool để Composer giải nén --prefer-dist
+# Cả hai đều cần, không thể thay thế cho nhau
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libzip-dev \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# ── 2. Cài & compile PHP extensions ─────────────────────────
+# zip yêu cầu libzip-dev đã có ở bước trên
 RUN docker-php-ext-install pdo pdo_mysql mysqli zip
 
-# Bật mô-đun Rewrite của Apache
+# ── 3. Bật mod_rewrite (cần cho .htaccess) ──────────────────
 RUN a2enmod rewrite
 
-# Cho phép .htaccess ghi đè cấu hình Apache (sửa virtual host mặc định)
-RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf \
-    && sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/sites-available/000-default.conf
+# ── 4. Cho phép Apache đọc .htaccess ────────────────────────
+# apache2.conf: directive <Directory /> và <Directory /var/www/>
+# 000-default.conf: directive <Directory /var/www/html>
+# Sửa cả 2 file để chắc chắn AllowOverride All ở mọi cấp
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf \
+    && sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/sites-available/000-default.conf
 
-# Cấu hình thư mục session cho PHP (tránh lỗi permission trên container)
-RUN mkdir -p /tmp/php_sessions && chown -R www-data:www-data /tmp/php_sessions && chmod 755 /tmp/php_sessions
-RUN echo "session.save_path = /tmp/php_sessions" > /usr/local/etc/php/conf.d/sessions.ini
+# ── 5. Cấu hình PHP session path ────────────────────────────
+# Container thường không có quyền ghi /var/lib/php/sessions mặc định
+# → Tạo thư mục riêng với đúng owner là www-data
+RUN mkdir -p /tmp/php_sessions \
+    && chown www-data:www-data /tmp/php_sessions \
+    && chmod 755 /tmp/php_sessions
+RUN { \
+        echo 'session.save_path = /tmp/php_sessions'; \
+        echo 'session.gc_probability = 1'; \
+    } > /usr/local/etc/php/conf.d/sessions.ini
 
-# Cài đặt Composer
+# ── 6. Cấu hình PHP cho production ──────────────────────────
+# display_errors=Off: ngăn PHP lỗi output ra HTML → tránh vỡ giao diện
+# error_log: ghi lỗi ra stderr để Render Logs capture được
+RUN { \
+        echo 'display_errors = Off'; \
+        echo 'display_startup_errors = Off'; \
+        echo 'error_reporting = E_ALL'; \
+        echo 'log_errors = On'; \
+        echo 'error_log = /dev/stderr'; \
+    } > /usr/local/etc/php/conf.d/production.ini
+
+# ── 7. Cài Composer ─────────────────────────────────────────
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
-# Sao chép mã nguồn
+# ── 8. Copy toàn bộ source code ─────────────────────────────
 COPY . /var/www/html/
 
-# Cài đặt PHP dependencies (PHPMailer)
-# Dùng composer update vì dự án chưa có composer.lock
-RUN cd /var/www/html && composer update --no-dev --no-interaction --optimize-autoloader --prefer-dist
+# ── 9. Cài PHP dependencies ─────────────────────────────────
+# Nếu đã có composer.lock → dùng install (nhanh & repeatable)
+# Nếu chưa có → dùng update (tự resolve + tạo lock file)
+RUN cd /var/www/html && \
+    if [ -f composer.lock ]; then \
+        composer install --no-dev --no-interaction --optimize-autoloader --prefer-dist; \
+    else \
+        composer update --no-dev --no-interaction --optimize-autoloader --prefer-dist; \
+    fi
 
-# Cấp quyền cho www-data
+# ── 10. Set quyền cho Apache ────────────────────────────────
 RUN chown -R www-data:www-data /var/www/html/
 
+# ── 11. Expose port 80 ──────────────────────────────────────
+# Render tự động map PORT env → 80 trong container
 EXPOSE 80
