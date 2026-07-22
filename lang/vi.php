@@ -10,6 +10,7 @@ return [
     'nav_news'         => 'Tin tức & Sự kiện',
     'nav_contact'      => 'Liên hệ',
     'nav_cta'          => 'Liên hệ ngay',
+    'nav_products'     => 'Sản phẩm',
     // Từ khóa Footer
     'company_name_prefix' => 'CÔNG TY CỔ PHẦN THƯƠNG MẠI DỊCH VỤ',
     'chairman' => 'Chủ tịch HĐQT:',

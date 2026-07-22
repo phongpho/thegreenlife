@@ -1,6 +1,7 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    // Tránh lỗi session.save_path không ghi được trên một số hosting (Render, Docker...)
+    @session_start();
 }
 
 // Danh sách ngôn ngữ được hỗ trợ

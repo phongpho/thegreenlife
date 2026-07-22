@@ -7,6 +7,13 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 # Bật mô-đun Rewrite của Apache
 RUN a2enmod rewrite
 
+# Cho phép .htaccess ghi đè cấu hình Apache
+RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+
+# Cấu hình thư mục session cho PHP (tránh lỗi permission trên container)
+RUN mkdir -p /tmp/php_sessions && chown -R www-data:www-data /tmp/php_sessions && chmod 733 /tmp/php_sessions
+RUN echo "session.save_path = /tmp/php_sessions" > /usr/local/etc/php/conf.d/sessions.ini
+
 # Cài đặt Composer
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
