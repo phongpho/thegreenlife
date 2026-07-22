@@ -21,7 +21,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 COPY . /var/www/html/
 
 # Cài đặt PHP dependencies (PHPMailer)
-RUN cd /var/www/html && composer install --no-dev --no-interaction --optimize-autoloader
+# Dùng composer update vì dự án chưa có composer.lock
+RUN cd /var/www/html && composer update --no-dev --no-interaction --optimize-autoloader --prefer-dist
 
 # Cấp quyền cho www-data
 RUN chown -R www-data:www-data /var/www/html/
