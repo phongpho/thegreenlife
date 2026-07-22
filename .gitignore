@@ -1,6 +1,5 @@
 # Composer
 /vendor/
-composer.lock
 
 # Environment
 .env
@@ -15,3 +14,4 @@ composer.lock
 # OS
 Thumbs.db
 Desktop.ini
+start.bat

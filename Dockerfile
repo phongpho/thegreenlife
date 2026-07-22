@@ -8,11 +8,12 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli zip
 # Bật mô-đun Rewrite của Apache
 RUN a2enmod rewrite
 
-# Cho phép .htaccess ghi đè cấu hình Apache
-RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+# Cho phép .htaccess ghi đè cấu hình Apache (sửa virtual host mặc định)
+RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf \
+    && sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/sites-available/000-default.conf
 
 # Cấu hình thư mục session cho PHP (tránh lỗi permission trên container)
-RUN mkdir -p /tmp/php_sessions && chown -R www-data:www-data /tmp/php_sessions && chmod 733 /tmp/php_sessions
+RUN mkdir -p /tmp/php_sessions && chown -R www-data:www-data /tmp/php_sessions && chmod 755 /tmp/php_sessions
 RUN echo "session.save_path = /tmp/php_sessions" > /usr/local/etc/php/conf.d/sessions.ini
 
 # Cài đặt Composer
