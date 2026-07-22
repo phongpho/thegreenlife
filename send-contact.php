@@ -227,6 +227,21 @@ try {
     $mail->CharSet    = PHPMailer::CHARSET_UTF8;
     $mail->Timeout    = 30;
 
+    // Debug SMTP: ghi toàn bộ hội thoại SMTP ra log để chẩn đoán
+    $mail->SMTPDebug  = 2;
+    $mail->Debugoutput = function (string $str, int $level) {
+        error_log('[SMTP DEBUG] ' . trim($str));
+    };
+
+    // Render free tier cần SSL context đặc biệt
+    $mail->SMTPOptions = [
+        'ssl' => [
+            'verify_peer'       => false,
+            'verify_peer_name'  => false,
+            'allow_self_signed' => true,
+        ],
+    ];
+
     // Người gửi: địa chỉ website (KHÔNG phải email người dùng)
     $mail->setFrom($mailConfig['from_address'], $mailConfig['from_name']);
 
@@ -289,6 +304,13 @@ try {
     $replyMail->Password   = $mailConfig['password'];
     $replyMail->CharSet    = PHPMailer::CHARSET_UTF8;
     $replyMail->Timeout    = 15;
+    $replyMail->SMTPOptions = [
+        'ssl' => [
+            'verify_peer'       => false,
+            'verify_peer_name'  => false,
+            'allow_self_signed' => true,
+        ],
+    ];
 
     $replyMail->setFrom($mailConfig['from_address'], $mailConfig['from_name']);
     $replyMail->addAddress($email, $name);
