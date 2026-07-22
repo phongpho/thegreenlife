@@ -50,10 +50,25 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // ══════════════════════════════════════════════════════════════
 $csrfToken = $_POST['csrf_token'] ?? '';
 if (!csrf_verify($csrfToken)) {
+    // TODO DEBUG: xóa debug này sau khi fix xong
+    $debug = [
+        'session_id'   => session_id() ?: 'NONE',
+        'session_keys' => isset($_SESSION) ? implode(', ', array_keys($_SESSION)) : 'SESSION_NOT_SET',
+        'cookie_exists' => isset($_COOKIE[session_name()]) ? 'YES' : 'NO',
+        'post_token_len' => strlen($csrfToken),
+        'sess_token_set' => isset($_SESSION['csrf_token']) ? 'YES' : 'NO',
+        'sess_expires' => $_SESSION['csrf_expires'] ?? 'NOT_SET',
+        'time_now' => time(),
+        'php_session_path' => session_save_path(),
+    ];
+    error_log('[CSRF DEBUG] ' . json_encode($debug));
+
     http_response_code(403);
     echo json_encode([
         'success' => false,
         'message' => 'Phiên làm việc đã hết hạn. Vui lòng tải lại trang và thử lại. / Session expired. Please reload and try again.',
+        // TODO DEBUG: xóa dòng debug này sau khi fix xong
+        '_debug' => $debug,
     ]);
     exit;
 }
