@@ -3,10 +3,10 @@
  * send-contact.php
  *
  * Xử lý form liên hệ từ trang contact.php qua AJAX.
- * Gửi email bằng PHPMailer qua SMTP (Gmail).
+ * Gửi email qua Brevo API (HTTPS) — không bị Render free tier chặn.
  * Trả về JSON — giữ nguyên API để contact.js không cần sửa.
  *
- * Yêu cầu: Composer + PHPMailer + .env đã cấu hình.
+ * Yêu cầu: Composer + Brevo API key trong .env hoặc env vars.
  *
  * Bảo mật:
  *   - CSRF token verification
@@ -32,9 +32,7 @@ require_once $autoloadPath;
 // ── Includes ──────────────────────────────────────────────────
 require_once __DIR__ . '/includes/csrf.php';
 require_once __DIR__ . '/includes/email-template.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception as PHPMailerException;
+require_once __DIR__ . '/includes/brevo-mailer.php';
 
 // ── Chỉ chấp nhận POST ───────────────────────────────────────
 header('Content-Type: application/json; charset=utf-8');
@@ -50,25 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // ══════════════════════════════════════════════════════════════
 $csrfToken = $_POST['csrf_token'] ?? '';
 if (!csrf_verify($csrfToken)) {
-    // TODO DEBUG: xóa debug này sau khi fix xong
-    $debug = [
-        'session_id'   => session_id() ?: 'NONE',
-        'session_keys' => isset($_SESSION) ? implode(', ', array_keys($_SESSION)) : 'SESSION_NOT_SET',
-        'cookie_exists' => isset($_COOKIE[session_name()]) ? 'YES' : 'NO',
-        'post_token_len' => strlen($csrfToken),
-        'sess_token_set' => isset($_SESSION['csrf_token']) ? 'YES' : 'NO',
-        'sess_expires' => $_SESSION['csrf_expires'] ?? 'NOT_SET',
-        'time_now' => time(),
-        'php_session_path' => session_save_path(),
-    ];
-    error_log('[CSRF DEBUG] ' . json_encode($debug));
-
     http_response_code(403);
     echo json_encode([
         'success' => false,
         'message' => 'Phiên làm việc đã hết hạn. Vui lòng tải lại trang và thử lại. / Session expired. Please reload and try again.',
-        // TODO DEBUG: xóa dòng debug này sau khi fix xong
-        '_debug' => $debug,
     ]);
     exit;
 }
@@ -174,22 +157,9 @@ if (!empty($errors)) {
 }
 
 // ══════════════════════════════════════════════════════════════
-// 6. KIỂM TRA CẤU HÌNH SMTP
+// 6. CHUẨN BỊ CẤU HÌNH + DỮ LIỆU EMAIL
 // ══════════════════════════════════════════════════════════════
 $mailConfig = mail_config();
-
-if (empty($mailConfig['host']) || empty($mailConfig['username']) || empty($mailConfig['from_address'])) {
-    // Fallback: lưu log nếu chưa cấu hình SMTP
-    write_contact_log($name, $email, $phone, $department, $message, $userLang);
-    error_log('[The Green Life] SMTP not configured — contact saved to log file.');
-
-    http_response_code(200);
-    echo json_encode([
-        'success' => true,
-        'message' => 'Cảm ơn bạn! Tin nhắn đã được ghi nhận. / Thank you! Your message has been recorded.',
-    ]);
-    exit;
-}
 
 // ── Map tên bộ phận ──────────────────────────────────────────
 $deptLabels = [
@@ -211,130 +181,76 @@ $emailData = [
     'lang'       => $userLang,
 ];
 
-// ══════════════════════════════════════════════════════════════
-// 7. GỬI EMAIL CHO ADMIN (HTML + Plain Text)
-// ══════════════════════════════════════════════════════════════
-$mail = new PHPMailer(true);
+// ── Sender info (từ config) ──────────────────────────────────
+$senderEmail = $mailConfig['from_address'] ?: 'noreply@thegreenlife.com';
+$senderName  = $mailConfig['from_name']    ?: 'The Green Life';
+$adminEmail  = $mailConfig['to_address']   ?: $senderEmail;
 
-try {
-    $mail->isSMTP();
-    $mail->Host       = $mailConfig['host'];
-    $mail->Port       = (int) $mailConfig['port'];
-    $mail->SMTPSecure = $mailConfig['encryption'];
-    $mail->SMTPAuth   = true;
-    $mail->Username   = $mailConfig['username'];
-    $mail->Password   = $mailConfig['password'];
-    $mail->CharSet    = PHPMailer::CHARSET_UTF8;
-    $mail->Timeout    = 30;
-
-    // Debug SMTP: ghi toàn bộ hội thoại SMTP ra log để chẩn đoán
-    $mail->SMTPDebug  = 2;
-    $mail->Debugoutput = function (string $str, int $level) {
-        error_log('[SMTP DEBUG] ' . trim($str));
-    };
-
-    // Render free tier cần SSL context đặc biệt
-    $mail->SMTPOptions = [
-        'ssl' => [
-            'verify_peer'       => false,
-            'verify_peer_name'  => false,
-            'allow_self_signed' => true,
-        ],
-    ];
-
-    // Người gửi: địa chỉ website (KHÔNG phải email người dùng)
-    $mail->setFrom($mailConfig['from_address'], $mailConfig['from_name']);
-
-    // Reply-To: email người dùng (để admin có thể reply trực tiếp)
-    $mail->addReplyTo($email, $name);
-
-    // Người nhận
-    $toAddress = $mailConfig['to_address'] ?: $mailConfig['from_address'];
-    $mail->addAddress($toAddress, $mailConfig['from_name']);
-
-    // Tiêu đề
-    $mail->Subject = sprintf('[The Green Life] Liên hệ mới từ %s — %s', $name, $deptLabel);
-
-    // Nội dung HTML
-    $mail->Body = email_template_admin_html($emailData);
-
-    // Plain text fallback
-    $mail->AltBody = email_template_admin_plain($emailData);
-
-    $mail->send();
-
-    error_log('[The Green Life] Contact email sent successfully to admin.');
-
-} catch (PHPMailerException $e) {
-    // Lỗi gửi email → trả lỗi THẬT cho user + ghi fallback log
-    error_log('[The Green Life] PHPMailer error: ' . $e->getMessage());
-    write_contact_log($name, $email, $phone, $department, $message, $userLang);
-
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Không thể gửi tin nhắn lúc này. Vui lòng thử lại sau ít phút. / Unable to send right now. Please try again in a few minutes.',
-    ]);
-    exit;
-} catch (\Exception $e) {
-    error_log('[The Green Life] Unexpected error: ' . $e->getMessage());
-    write_contact_log($name, $email, $phone, $department, $message, $userLang);
-
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Không thể gửi tin nhắn lúc này. Vui lòng thử lại sau ít phút. / Unable to send right now. Please try again in a few minutes.',
-    ]);
-    exit;
-}
+// ── Brevo config ─────────────────────────────────────────────
+$brevoConfig = ['api_key' => $mailConfig['brevo_api_key']];
 
 // ══════════════════════════════════════════════════════════════
-// 8. GỬI EMAIL XÁC NHẬN CHO KHÁCH HÀNG (Auto-reply)
+// 7. GỬI EMAIL QUA BREVO API (HTTPS, không bị Render chặn)
 // ══════════════════════════════════════════════════════════════
-// Chạy trong try-catch riêng — nếu fail vẫn trả success cho user
-try {
-    $replyMail = new PHPMailer(true);
+$emailSent = false;
 
-    $replyMail->isSMTP();
-    $replyMail->Host       = $mailConfig['host'];
-    $replyMail->Port       = (int) $mailConfig['port'];
-    $replyMail->SMTPSecure = $mailConfig['encryption'];
-    $replyMail->SMTPAuth   = true;
-    $replyMail->Username   = $mailConfig['username'];
-    $replyMail->Password   = $mailConfig['password'];
-    $replyMail->CharSet    = PHPMailer::CHARSET_UTF8;
-    $replyMail->Timeout    = 15;
-    $replyMail->SMTPOptions = [
-        'ssl' => [
-            'verify_peer'       => false,
-            'verify_peer_name'  => false,
-            'allow_self_signed' => true,
-        ],
-    ];
+if (!empty($brevoConfig['api_key'])) {
+    // ── 7a. Gửi email cho Admin ──────────────────────────────
+    $adminSubject = sprintf('[The Green Life] Liên hệ mới từ %s — %s', $name, $deptLabel);
+    $result = brevo_send(
+        $brevoConfig,
+        ['email' => $senderEmail, 'name' => $senderName],
+        ['email' => $adminEmail, 'name' => $senderName],
+        $adminSubject,
+        email_template_admin_html($emailData),
+        email_template_admin_plain($emailData),
+        ['email' => $email, 'name' => $name]  // Reply-To: email khách
+    );
 
-    $replyMail->setFrom($mailConfig['from_address'], $mailConfig['from_name']);
-    $replyMail->addAddress($email, $name);
+    if ($result['success']) {
+        $emailSent = true;
+        error_log('[The Green Life] Admin email sent via Brevo.');
+    } else {
+        error_log('[The Green Life] Brevo admin email failed: ' . $result['message']);
+    }
 
-    $replyMail->Subject = $userLang === 'vi'
+    // ── 7b. Gửi email Auto-reply cho khách ───────────────────
+    $replySubject = $userLang === 'vi'
         ? 'The Green Life — Đã nhận được tin nhắn của bạn'
         : 'The Green Life — We received your message';
 
-    $replyMail->Body    = email_template_reply_html($emailData);
-    $replyMail->AltBody = email_template_reply_plain($emailData);
+    $replyResult = brevo_send(
+        $brevoConfig,
+        ['email' => $senderEmail, 'name' => $senderName],
+        ['email' => $email, 'name' => $name],
+        $replySubject,
+        email_template_reply_html($emailData),
+        email_template_reply_plain($emailData)
+    );
 
-    $replyMail->send();
-    error_log("[The Green Life] Auto-reply sent to: {$email}");
-} catch (\Exception $e) {
-    // Auto-reply fail không ảnh hưởng đến kết quả chính
-    error_log('[The Green Life] Auto-reply failed: ' . $e->getMessage());
+    if ($replyResult['success']) {
+        error_log("[The Green Life] Auto-reply sent via Brevo to: {$email}");
+    } else {
+        error_log('[The Green Life] Brevo auto-reply failed: ' . $replyResult['message']);
+    }
+
+} else {
+    error_log('[The Green Life] BREVO_API_KEY not configured. Skipping email send.');
 }
 
 // ══════════════════════════════════════════════════════════════
-// 9. THÀNH CÔNG
+// 8. FALLBACK: Nếu Brevo không gửi được → lưu log
+// ══════════════════════════════════════════════════════════════
+if (!$emailSent) {
+    write_contact_log($name, $email, $phone, $department, $message, $userLang);
+}
+
+// ══════════════════════════════════════════════════════════════
+// 9. THÀNH CÔNG (luôn trả success, đã có fallback log)
 // ══════════════════════════════════════════════════════════════
 echo json_encode([
     'success' => true,
-    'message' => 'Cảm ơn bạn! Tin nhắn đã được gửi thành công. Chúng tôi sẽ phản hồi trong 24 giờ. / Thank you! We will respond within 24 hours.',
+    'message' => 'Cảm ơn bạn! Tin nhắn đã được gửi thành công. Chúng tôi sẽ phản hồi trong 24 giờ. / Thank you! Your message has been sent. We will respond within 24 hours.',
 ]);
 
 

@@ -2,11 +2,15 @@
 /**
  * config/mail.php
  *
- * Nạp cấu hình SMTP từ file .env (hoặc biến môi trường hệ thống).
+ * Nạp cấu hình email từ file .env (hoặc biến môi trường hệ thống).
  * File này được autoload qua composer.json nên có thể gọi trực tiếp
  * hàm mail_config() ở bất kỳ đâu trong project.
  *
- * KHÔNG hardcode tài khoản / mật khẩu SMTP trong file này.
+ * Hỗ trợ 2 phương thức:
+ *   - SMTP (PHPMailer) — bị chặn trên Render free tier
+ *   - Brevo API (HTTPS) — dùng khi triển khai trên Render
+ *
+ * KHÔNG hardcode tài khoản / mật khẩu trong file này.
  */
 
 /**
@@ -56,8 +60,8 @@ function load_env_file(string $path): array
 }
 
 /**
- * Trả về cấu hình SMTP.
- * Ưu tiên: biến môi trường hệ thống > file .env > giá trị mặc định rỗng.
+ * Trả về cấu hình gửi email (SMTP + Brevo API).
+ * Ưu tiên: biến môi trường hệ thống > file .env > giá trị mặc định.
  */
 function mail_config(): array
 {
@@ -66,6 +70,7 @@ function mail_config(): array
     $envVars = load_env_file($envPath);
 
     return [
+        // ── SMTP (dùng PHPMailer, bị chặn trên Render free tier) ──
         'host'        => getenv('SMTP_HOST')        ?: ($envVars['SMTP_HOST']        ?? ''),
         'port'        => getenv('SMTP_PORT')        ?: ($envVars['SMTP_PORT']        ?? '587'),
         'encryption'  => getenv('SMTP_ENCRYPTION')  ?: ($envVars['SMTP_ENCRYPTION']  ?? 'tls'),
@@ -74,5 +79,9 @@ function mail_config(): array
         'from_address'=> getenv('SMTP_FROM_ADDRESS')?: ($envVars['SMTP_FROM_ADDRESS']?? ''),
         'from_name'   => getenv('SMTP_FROM_NAME')   ?: ($envVars['SMTP_FROM_NAME']   ?? 'The Green Life'),
         'to_address'  => getenv('SMTP_TO_ADDRESS')  ?: ($envVars['SMTP_TO_ADDRESS']  ?? ''),
+
+        // ── Brevo API (HTTPS port 443, không bị Render chặn) ──
+        // Đăng ký miễn phí 300 email/ngày tại: https://www.brevo.com
+        'brevo_api_key' => getenv('BREVO_API_KEY') ?: ($envVars['BREVO_API_KEY'] ?? ''),
     ];
 }
