@@ -1,8 +1,9 @@
 # Sử dụng hình ảnh PHP chính thức tích hợp sẵn máy chủ Apache
 FROM php:8.2-apache
 
-# Cài đặt các tiện ích mở rộng PHP phổ biến
-RUN docker-php-ext-install pdo pdo_mysql mysqli
+# Cài đặt unzip (cần cho Composer --prefer-dist) và PHP extensions
+RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
+RUN docker-php-ext-install pdo pdo_mysql mysqli zip
 
 # Bật mô-đun Rewrite của Apache
 RUN a2enmod rewrite
