@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/language.php';
+require_once __DIR__ . '/includes/csrf.php';
 
 ?>
 <!DOCTYPE html>
@@ -54,6 +55,19 @@ require_once __DIR__ . '/includes/language.php';
                     <p class="form-desc"><?= $lang['contact_form_desc'] ?></p>
 
                     <form id="contactForm" class="contact-form" action="send-contact.php" method="POST">
+
+                        <!-- CSRF Token -->
+                        <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+
+                        <!-- Ngôn ngữ hiện tại (để email auto-reply đúng ngôn ngữ) -->
+                        <input type="hidden" name="lang" value="<?= $currentLang ?>">
+
+                        <!-- Honeypot (ẩn với người, bot sẽ tự điền) -->
+                        <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                            <label for="hp_website">Website</label>
+                            <input type="text" id="hp_website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="contactName"><?= $lang['contact_form_name'] ?> <span class="required">*</span></label>

@@ -3,10 +3,16 @@
  * send-contact.php
  *
  * Xử lý form liên hệ từ trang contact.php qua AJAX.
- * Gửi email bằng PHPMailer qua SMTP.
+ * Gửi email bằng PHPMailer qua SMTP (Gmail).
  * Trả về JSON — giữ nguyên API để contact.js không cần sửa.
  *
- * Yêu cầu: Composer + PHPMailer (chạy `composer install` trước).
+ * Yêu cầu: Composer + PHPMailer + .env đã cấu hình.
+ *
+ * Bảo mật:
+ *   - CSRF token verification
+ *   - Honeypot field chống bot
+ *   - Rate limiting (60 giây / lần)
+ *   - Input sanitize + validate
  */
 
 declare(strict_types=1);
@@ -23,6 +29,10 @@ if (!file_exists($autoloadPath)) {
 }
 require_once $autoloadPath;
 
+// ── Includes ──────────────────────────────────────────────────
+require_once __DIR__ . '/includes/csrf.php';
+require_once __DIR__ . '/includes/email-template.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception as PHPMailerException;
 
@@ -31,19 +41,66 @@ header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Method not allowed.']);
+    exit;
+}
+
+// ══════════════════════════════════════════════════════════════
+// 1. CSRF VERIFICATION
+// ══════════════════════════════════════════════════════════════
+$csrfToken = $_POST['csrf_token'] ?? '';
+if (!csrf_verify($csrfToken)) {
+    http_response_code(403);
     echo json_encode([
         'success' => false,
-        'message' => 'Method not allowed.',
+        'message' => 'Phiên làm việc đã hết hạn. Vui lòng tải lại trang và thử lại. / Session expired. Please reload and try again.',
     ]);
     exit;
 }
 
-// ── Lấy & sanitize dữ liệu đầu vào ────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// 2. HONEYPOT CHECK — chặn bot
+// ══════════════════════════════════════════════════════════════
+if (!empty($_POST['website'])) {
+    // Bot đã điền field ẩn → từ chối âm thầm (giả vờ thành công)
+    http_response_code(200);
+    echo json_encode([
+        'success' => true,
+        'message' => 'Cảm ơn bạn! Tin nhắn đã được gửi thành công. / Thank you! Your message has been sent successfully.',
+    ]);
+    exit;
+}
+
+// ══════════════════════════════════════════════════════════════
+// 3. RATE LIMITING — tối đa 1 lần / 60 giây
+// ══════════════════════════════════════════════════════════════
+$now = time();
+$lastSubmit = $_SESSION['contact_last_submit'] ?? 0;
+if ($now - $lastSubmit < 60) {
+    $wait = 60 - ($now - $lastSubmit);
+    http_response_code(429);
+    echo json_encode([
+        'success' => false,
+        'message' => "Vui lòng đợi {$wait} giây trước khi gửi lại. / Please wait {$wait} seconds.",
+    ]);
+    exit;
+}
+$_SESSION['contact_last_submit'] = $now;
+
+// ══════════════════════════════════════════════════════════════
+// 4. INPUT SANITIZE
+// ══════════════════════════════════════════════════════════════
 $rawName       = $_POST['name']       ?? '';
 $rawPhone      = $_POST['phone']      ?? '';
 $rawEmail      = $_POST['email']      ?? '';
 $rawDepartment = $_POST['department'] ?? '';
 $rawMessage    = $_POST['message']    ?? '';
+$userLang      = $_POST['lang']       ?? 'vi';
+
+// Xác thực ngôn ngữ
+if (!in_array($userLang, ['vi', 'en'], true)) {
+    $userLang = 'vi';
+}
 
 // Strip tags & trim
 $name       = trim(strip_tags($rawName));
@@ -52,7 +109,9 @@ $email      = trim(strip_tags($rawEmail));
 $department = trim(strip_tags($rawDepartment));
 $message    = trim(strip_tags($rawMessage));
 
-// ── Validate ──────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// 5. VALIDATE
+// ══════════════════════════════════════════════════════════════
 $errors = [];
 
 if ($name === '') {
@@ -73,7 +132,7 @@ if ($email === '') {
     $errors[] = 'Email không hợp lệ. / Please enter a valid email address.';
 }
 
-// Chống Email Header Injection: chặn ký tự \r, \n trong email và name
+// Chống Email Header Injection
 if (preg_match('/[\r\n]/', $email) || preg_match('/[\r\n]/', $name)) {
     $errors[] = 'Dữ liệu không hợp lệ. / Invalid input detected.';
 }
@@ -99,15 +158,20 @@ if (!empty($errors)) {
     exit;
 }
 
-// ── Nạp cấu hình SMTP ────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// 6. KIỂM TRA CẤU HÌNH SMTP
+// ══════════════════════════════════════════════════════════════
 $mailConfig = mail_config();
 
 if (empty($mailConfig['host']) || empty($mailConfig['username']) || empty($mailConfig['from_address'])) {
-    error_log('[The Green Life] SMTP configuration is incomplete. Check your .env file.');
-    http_response_code(500);
+    // Fallback: lưu log nếu chưa cấu hình SMTP
+    write_contact_log($name, $email, $phone, $department, $message, $userLang);
+    error_log('[The Green Life] SMTP not configured — contact saved to log file.');
+
+    http_response_code(200);
     echo json_encode([
-        'success' => false,
-        'message' => 'Không thể gửi tin nhắn lúc này. Vui lòng thử lại sau. / Unable to send your message right now. Please try again later.',
+        'success' => true,
+        'message' => 'Cảm ơn bạn! Tin nhắn đã được ghi nhận. / Thank you! Your message has been recorded.',
     ]);
     exit;
 }
@@ -121,11 +185,23 @@ $deptLabels = [
 ];
 $deptLabel = $deptLabels[$department] ?? 'Không chọn / Not selected';
 
-// ── Chuẩn bị PHPMailer ───────────────────────────────────────
+// ── Dữ liệu cho email template ───────────────────────────────
+$emailData = [
+    'name'       => $name,
+    'phone'      => $phone,
+    'email'      => $email,
+    'dept_label' => $deptLabel,
+    'message'    => $message,
+    'time'       => date('d/m/Y H:i:s'),
+    'lang'       => $userLang,
+];
+
+// ══════════════════════════════════════════════════════════════
+// 7. GỬI EMAIL CHO ADMIN (HTML + Plain Text)
+// ══════════════════════════════════════════════════════════════
 $mail = new PHPMailer(true);
 
 try {
-    // SMTP
     $mail->isSMTP();
     $mail->Host       = $mailConfig['host'];
     $mail->Port       = (int) $mailConfig['port'];
@@ -139,7 +215,7 @@ try {
     // Người gửi: địa chỉ website (KHÔNG phải email người dùng)
     $mail->setFrom($mailConfig['from_address'], $mailConfig['from_name']);
 
-    // Reply-To: email người dùng
+    // Reply-To: email người dùng (để admin có thể reply trực tiếp)
     $mail->addReplyTo($email, $name);
 
     // Người nhận
@@ -147,57 +223,86 @@ try {
     $mail->addAddress($toAddress, $mailConfig['from_name']);
 
     // Tiêu đề
-    $mail->Subject = sprintf('[The Green Life] Liên hệ mới từ %s', $name);
+    $mail->Subject = sprintf('[The Green Life] Liên hệ mới từ %s — %s', $name, $deptLabel);
 
-    // Nội dung (plain text)
-    $body = "=== THÔNG TIN LIÊN HỆ ===\n\n";
-    $body .= "Họ tên       : {$name}\n";
-    $body .= "Số điện thoại: {$phone}\n";
-    $body .= "Email        : {$email}\n";
-    $body .= "Bộ phận      : {$deptLabel}\n\n";
-    $body .= "=== NỘI DUNG TIN NHẮN ===\n";
-    $body .= $message . "\n\n";
-    $body .= "---\n";
-    $body .= "Email này được gửi tự động từ form liên hệ trên website The Green Life.\n";
-    $body .= 'Thời gian: ' . date('d/m/Y H:i:s') . "\n";
+    // Nội dung HTML
+    $mail->Body = email_template_admin_html($emailData);
 
-    $mail->Body = $body;
+    // Plain text fallback
+    $mail->AltBody = email_template_admin_plain($emailData);
 
-    // Gửi
     $mail->send();
 
-    // ── Thành công ────────────────────────────────────────────
-    echo json_encode([
-        'success' => true,
-        'message' => 'Cảm ơn bạn! Tin nhắn đã được gửi thành công. / Thank you! Your message has been sent successfully.',
-    ]);
+    error_log('[The Green Life] Contact email sent successfully to admin.');
 
 } catch (PHPMailerException $e) {
-    // Ghi log chi tiết cho admin — không trả về cho client
+    // Lỗi gửi email → trả lỗi THẬT cho user + ghi fallback log
     error_log('[The Green Life] PHPMailer error: ' . $e->getMessage());
+    write_contact_log($name, $email, $phone, $department, $message, $userLang);
 
-    // Fallback: ghi log ra file
-    write_contact_log($name, $email, $phone, $deptLabel, $message);
-
+    http_response_code(500);
     echo json_encode([
-        'success' => true,
-        'message' => 'Cảm ơn bạn! Tin nhắn đã được ghi nhận. / Thank you! Your message has been recorded.',
+        'success' => false,
+        'message' => 'Không thể gửi tin nhắn lúc này. Vui lòng thử lại sau ít phút. / Unable to send right now. Please try again in a few minutes.',
     ]);
-
+    exit;
 } catch (\Exception $e) {
     error_log('[The Green Life] Unexpected error: ' . $e->getMessage());
+    write_contact_log($name, $email, $phone, $department, $message, $userLang);
 
-    write_contact_log($name, $email, $phone, $deptLabel, $message);
-
+    http_response_code(500);
     echo json_encode([
-        'success' => true,
-        'message' => 'Cảm ơn bạn! Tin nhắn đã được ghi nhận. / Thank you! Your message has been recorded.',
+        'success' => false,
+        'message' => 'Không thể gửi tin nhắn lúc này. Vui lòng thử lại sau ít phút. / Unable to send right now. Please try again in a few minutes.',
     ]);
+    exit;
 }
+
+// ══════════════════════════════════════════════════════════════
+// 8. GỬI EMAIL XÁC NHẬN CHO KHÁCH HÀNG (Auto-reply)
+// ══════════════════════════════════════════════════════════════
+// Chạy trong try-catch riêng — nếu fail vẫn trả success cho user
+try {
+    $replyMail = new PHPMailer(true);
+
+    $replyMail->isSMTP();
+    $replyMail->Host       = $mailConfig['host'];
+    $replyMail->Port       = (int) $mailConfig['port'];
+    $replyMail->SMTPSecure = $mailConfig['encryption'];
+    $replyMail->SMTPAuth   = true;
+    $replyMail->Username   = $mailConfig['username'];
+    $replyMail->Password   = $mailConfig['password'];
+    $replyMail->CharSet    = PHPMailer::CHARSET_UTF8;
+    $replyMail->Timeout    = 15;
+
+    $replyMail->setFrom($mailConfig['from_address'], $mailConfig['from_name']);
+    $replyMail->addAddress($email, $name);
+
+    $replyMail->Subject = $userLang === 'vi'
+        ? 'The Green Life — Đã nhận được tin nhắn của bạn'
+        : 'The Green Life — We received your message';
+
+    $replyMail->Body    = email_template_reply_html($emailData);
+    $replyMail->AltBody = email_template_reply_plain($emailData);
+
+    $replyMail->send();
+    error_log("[The Green Life] Auto-reply sent to: {$email}");
+} catch (\Exception $e) {
+    // Auto-reply fail không ảnh hưởng đến kết quả chính
+    error_log('[The Green Life] Auto-reply failed: ' . $e->getMessage());
+}
+
+// ══════════════════════════════════════════════════════════════
+// 9. THÀNH CÔNG
+// ══════════════════════════════════════════════════════════════
+echo json_encode([
+    'success' => true,
+    'message' => 'Cảm ơn bạn! Tin nhắn đã được gửi thành công. Chúng tôi sẽ phản hồi trong 24 giờ. / Thank you! We will respond within 24 hours.',
+]);
 
 
 // ══════════════════════════════════════════════════════════════
-//  Helper functions
+// HELPER: Ghi fallback log khi SMTP không hoạt động
 // ══════════════════════════════════════════════════════════════
 
 /**
@@ -207,9 +312,18 @@ function write_contact_log(
     string $name,
     string $email,
     string $phone,
-    string $deptLabel,
-    string $message
+    string $department,
+    string $message,
+    string $userLang
 ): void {
+    $deptLabels = [
+        'business'      => 'Kinh doanh / Business',
+        'import-export' => 'Xuất nhập khẩu / Import-Export',
+        'procurement'   => 'Thu mua nguyên liệu / Procurement',
+        'support'       => 'Hỗ trợ chung / General Support',
+    ];
+    $deptLabel = $deptLabels[$department] ?? 'Không chọn / Not selected';
+
     $logDir = __DIR__ . '/logs';
     if (!is_dir($logDir)) {
         if (!mkdir($logDir, 0755, true) && !is_dir($logDir)) {
@@ -220,8 +334,9 @@ function write_contact_log(
 
     $logFile = $logDir . '/contact-' . date('Y-m-d') . '.log';
     $logEntry = sprintf(
-        "[%s] From: %s <%s>, Phone: %s, Dept: %s\nMessage: %s\n---\n",
+        "[%s] Lang: %s | From: %s <%s>, Phone: %s, Dept: %s\nMessage: %s\n---\n",
         date('Y-m-d H:i:s'),
+        $userLang,
         $name,
         $email,
         $phone,
