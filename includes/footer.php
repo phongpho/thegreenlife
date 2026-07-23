@@ -40,8 +40,8 @@
                 <ul class="footer-links">
                     <li><a href="about-us.php"><?= $lang['about_us'] ?></a></li>
                     <li><a href="grain-trading.php"><?= $lang['business_areas'] ?></a></li>
-                    <li><a href=""><?= $lang['typical_products'] ?></a></li>
-                    <li><a href=""><?= $lang['news_events'] ?></a></li>
+                    <li><a href="products.php"><?= $lang['typical_products'] ?></a></li>
+                    <li><a href="news.php"><?= $lang['news_events'] ?></a></li>
                 </ul>
             </div>
 

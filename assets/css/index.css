@@ -58,23 +58,61 @@
 .about-section .title-with-line {
     border-left: 4px solid #df0012;
     padding-left: 15px;
+    margin-bottom: 40px;
 }
 
 
 .about-section .content {
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
-.about-section p {
-    color: black;
-    margin-bottom: 50px;
-    width: 80%;
-}
+/* Eyebrow — nhỏ, trên cùng */
 
-.about-section h2 {
+
+/* H1 — chỉ tên thương hiệu, điểm nhấn lớn nhất */
+.about-section h1 {
+    font-weight: 600;
+    font-size: 3.8rem;
+    line-height: 1.05;
+    color: var(--primary-color);
+    letter-spacing: -1px;
+    margin-bottom: 0;
+}
+.hero-eyebrow {
+    font-size: 0.85rem;
     font-weight: 500;
-    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #df0012;
+    margin-top: 0;
+    margin-bottom: 10px; 
 }
+/* Subtitle — ngành nghề, nổi bật hơn desc */
+.hero-subtitle {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #3a3a3a;
+    letter-spacing: 0.3px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+/* Đoạn mô tả — ngắn gọn, dễ đọc */
+.hero-desc {
+    color: black;
+    font-size: 1.02rem;
+    line-height: 1.75;
+    max-width: 480px;
+    margin-top: 0;
+    margin-bottom: 80px;
+}
+
+
+
 
 
 
@@ -487,15 +525,33 @@
     /* --- About Section --- */
     .about-section {
         background-image: url('../images/index/background-mobile.png');
+        height: auto;
+        min-height: 0;
+        padding: 64px 0;
     }
 
-    .about-section h2 {
-        font-size: 2.8rem;
+    .hero-eyebrow {
+        font-size: 0.8rem;
+        letter-spacing: 3px;
+        margin-top: 0;
     }
 
-    .about-section p {
-        margin-bottom: 40px;
-        width: 100%;
+    .about-section h1 {
+        font-size: 2.6rem;
+        margin-bottom: 0;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-top: 8px;
+        margin-bottom: 18px;
+    }
+
+    .hero-desc {
+        font-size: 0.95rem;
+        max-width: 100%;
+        margin-top: 0;
+        margin-bottom: 32px;
     }
 
     .about-section .container-flex {
@@ -614,6 +670,9 @@
     /* --- About Section --- */
     .about-section {
         background-image: url('../images/index/background-mobile.png');
+        height: auto;
+        min-height: 0;
+        padding: 56px 0;
     }
 
     .about-section .container-flex {
@@ -624,17 +683,32 @@
         width: 100%;
     }
 
-    .about-section h2 {
+    .hero-eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 2.5px;
+        margin-top: 0;
+        margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+        font-size: 0.88rem;
+        margin-top: 0;
+        margin-bottom: 14px;
+    }
+
+    .hero-desc {
+        font-size: 0.9rem;
+        margin-top: 0;
+        margin-bottom: 24px;
+        max-width: 100%;
+    }
+
+    .about-section h1 {
         font-size: 2rem;
     }
 
-    .about-section h3 {
-        font-size: 1.2rem;
-    }
-
-    .about-section p {
-        margin-bottom: 24px;
-        width: 100%;
+    .about-section .title-with-line {
+        margin-bottom: 30px;
     }
 
     .about-section .picture {
@@ -797,17 +871,28 @@
     .banner-arrow-left { left: 6px; }
     .banner-arrow-right { right: 6px; }
 
-    .about-section h2 {
-        font-size: 1.6rem;
+    .hero-eyebrow {
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+        margin-top: 0;
+        margin-bottom: 4px;
     }
 
-    .about-section h3 {
-        font-size: 1rem;
+    .hero-subtitle {
+        font-size: 0.78rem;
+        margin-top: 0;
+        margin-bottom: 12px;
     }
 
-    .about-section p {
-        width: 100%;
-        margin-bottom: 20px;
+    .hero-desc {
+        font-size: 0.82rem;
+        margin-top: 0;
+        margin-bottom: 18px;
+        max-width: 100%;
+    }
+
+    .about-section h1 {
+        font-size: 1.5rem;
     }
 
     .card-header .title {
