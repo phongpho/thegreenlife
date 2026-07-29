@@ -187,30 +187,31 @@ p {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    padding-left: 250px; /* chừa chỗ cho logo absolute bên trái */
+    padding-left: 250px; 
 }
 
 .logo {
     position: absolute;
     left: 0;
-    bottom: -37px; /* tràn 24px xuống dưới header */
+    bottom: -40px; 
     z-index: 1010;
     display: block;
 }
 
-/* Floating Logo Card – overlaps hero banner */
+
 .logo-card {
     background-color: #ffffff;
-    padding: 10px 20px 26px;
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
+    padding: 20px 20px 26px;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
     display: inline-block;
     transition: padding 0.3s ease;
 }
 
 .logo-img {
-    height: 70px;
+    height: 105px;
     width: auto;
+    padding-top: 10px;
     display: block;
     transition: height 0.3s ease;
 
