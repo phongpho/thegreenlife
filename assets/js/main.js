@@ -46,17 +46,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // --- 4. Thu nhỏ navbar khi cuộn trang ---
-    if (header) {
-        var onScroll = function () {
-            if (window.scrollY > 40) {
-                header.classList.add('is-scrolled');
-            } else {
-                header.classList.remove('is-scrolled');
-            }
-        };
-        window.addEventListener('scroll', onScroll);
-        onScroll();
-    }
+    // if (header) {
+    //     var onScroll = function () {
+    //         if (window.scrollY > 40) {
+    //             header.classList.add('is-scrolled');
+    //         } else {
+    //             header.classList.remove('is-scrolled');
+    //         }
+    //     };
+    //     window.addEventListener('scroll', onScroll);
+    //     onScroll();
+    // }
 
     // --- 5. Banner slider tự động đọc ảnh từ PHP ---
     var BANNER_AUTOPLAY_DELAY = 15000; // 👉 Chỉnh thời gian tự chuyển ảnh ở đây (đơn vị: mili giây, 5000 = 5 giây)

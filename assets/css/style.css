@@ -164,10 +164,10 @@ p {
     padding: var(--spacing-2) 0;
 }
 
-.site-header.is-scrolled {
+/* .site-header.is-scrolled {
     padding: var(--spacing-1) 0;
     box-shadow: var(--box-shadow);
-}
+} */
 
 /* Logo card thu nhỏ khi header sticky */
 /* .site-header.is-scrolled .logo {

@@ -6,7 +6,7 @@ $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
         
         <a href="index.php" class="logo">
             <div class="logo-card">
-                <img src="assets/images/global/the-green-life-logo.png" alt="The Green Life" class="logo-img">
+                <img src="assets/images/global/the-green-life-logo.webp" alt="The Green Life" class="logo-img">
             </div>
         </a>
 
@@ -67,13 +67,13 @@ $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
             <div class="nav-lang-mobile">
                 <div class="lang-switcher">
                     <a href="<?= lang_switch_url('vi') ?>" class="<?= $currentLang === 'vi' ? 'active' : '' ?>">
-                        <img src="https://flagcdn.com/16x12/vn.png" width="16" height="12" alt="VI" class="flag-icon">
+                        <img src="assets/images/global/flag-vn.svg" width="16" height="12" alt="VI" class="flag-icon">
                         Tiếng Việt
                     </a>
                     <span class="divider">|</span>
                     <a href="<?= lang_switch_url('en') ?>" class="<?= $currentLang === 'en' ? 'active' : '' ?>">
                         English
-                        <img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN" class="flag-icon">
+                        <img src="assets/images/global/flag-us.svg" width="16" height="12" alt="EN" class="flag-icon">
                     </a>
                 </div>
             </div>
@@ -82,7 +82,7 @@ $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
         <div class="nav-utils">
             <div class="lang-switcher">
                 <a href="<?= lang_switch_url('vi') ?>" class="<?= $currentLang === 'vi' ? 'active' : '' ?>">
-                    <img src="https://flagcdn.com/16x12/vn.png" width="16" height="12" alt="VI" class="flag-icon">
+                    <img src="assets/images/global/flag-vn.svg" width="16" height="12" alt="VI" class="flag-icon">
                     VI
                 </a>
 
@@ -90,7 +90,7 @@ $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
 
                 <a href="<?= lang_switch_url('en') ?>" class="<?= $currentLang === 'en' ? 'active' : '' ?>">
                     EN
-                    <img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN" class="flag-icon">
+                    <img src="assets/images/global/flag-us.svg" width="16" height="12" alt="EN" class="flag-icon">
                 </a>
             </div>
         </div>
