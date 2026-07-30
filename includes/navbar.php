@@ -10,11 +10,32 @@ $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
             </div>
         </a>
 
-        <button class="navbar-toggle" id="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
+        <!-- Language dropdown for mobile – outside hamburger menu -->
+        <div class="mobile-utils">
+            <div class="lang-dropdown lang-dropdown--mobile" id="langDropdownMobile">
+                <button class="lang-dropdown-toggle" id="langDropdownMobileToggle" aria-expanded="false" aria-label="Select language">
+                    <img src="<?= $languages[$currentLang]['flag'] ?>" width="20" height="14" alt="" class="flag-icon">
+                    <span class="lang-code"><?= strtoupper($currentLang) ?></span>
+                    <span class="caret">▼</span>
+                </button>
+                <ul class="lang-dropdown-menu">
+                    <?php foreach ($languages as $code => $info): ?>
+                    <li>
+                        <a href="<?= lang_switch_url($code) ?>" class="<?= $currentLang === $code ? 'active' : '' ?>">
+                            <img src="<?= $info['flag'] ?>" width="20" height="14" alt="" class="flag-icon">
+                            <?= $info['name'] ?>
+                        </a>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+            <button class="navbar-toggle" id="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
 
         <nav class="navbar-menu" id="navbarMenu">
             <ul class="nav-list">
@@ -63,35 +84,26 @@ $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
                 </li>
             </ul>
 
-            <!-- Language switcher inside mobile menu -->
-            <div class="nav-lang-mobile">
-                <div class="lang-switcher">
-                    <a href="<?= lang_switch_url('vi') ?>" class="<?= $currentLang === 'vi' ? 'active' : '' ?>">
-                        <img src="assets/images/global/flag-vn.svg" width="16" height="12" alt="VI" class="flag-icon">
-                        Tiếng Việt
-                    </a>
-                    <span class="divider">|</span>
-                    <a href="<?= lang_switch_url('en') ?>" class="<?= $currentLang === 'en' ? 'active' : '' ?>">
-                        English
-                        <img src="assets/images/global/flag-us.svg" width="16" height="12" alt="EN" class="flag-icon">
-                    </a>
-                </div>
-            </div>
+
         </nav>
 
         <div class="nav-utils">
-            <div class="lang-switcher">
-                <a href="<?= lang_switch_url('vi') ?>" class="<?= $currentLang === 'vi' ? 'active' : '' ?>">
-                    <img src="assets/images/global/flag-vn.svg" width="16" height="12" alt="VI" class="flag-icon">
-                    VI
-                </a>
-
-                <span class="divider">|</span>
-
-                <a href="<?= lang_switch_url('en') ?>" class="<?= $currentLang === 'en' ? 'active' : '' ?>">
-                    EN
-                    <img src="assets/images/global/flag-us.svg" width="16" height="12" alt="EN" class="flag-icon">
-                </a>
+            <div class="lang-dropdown" id="langDropdown">
+                <button class="lang-dropdown-toggle" id="langDropdownToggle" aria-expanded="false" aria-label="Select language">
+                    <img src="<?= $languages[$currentLang]['flag'] ?>" width="20" height="14" alt="" class="flag-icon">
+                    <span class="lang-code"><?= strtoupper($currentLang) ?></span>
+                    <span class="caret">▼</span>
+                </button>
+                <ul class="lang-dropdown-menu">
+                    <?php foreach ($languages as $code => $info): ?>
+                    <li>
+                        <a href="<?= lang_switch_url($code) ?>" class="<?= $currentLang === $code ? 'active' : '' ?>">
+                            <img src="<?= $info['flag'] ?>" width="20" height="14" alt="" class="flag-icon">
+                            <?= $info['name'] ?>
+                        </a>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         </div>
     </div>

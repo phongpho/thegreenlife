@@ -6,8 +6,16 @@ if (session_status() === PHP_SESSION_NONE) {
     }
 }
 
-// Danh sách ngôn ngữ được hỗ trợ
-$supportedLangs = ['vi', 'en'];
+// Danh sách ngôn ngữ được hỗ trợ kèm metadata (thêm ngôn ngữ mới tại đây)
+$languages = [
+    'vi' => ['name' => 'Tiếng Việt', 'flag' => 'assets/images/global/flag-vn.svg'],
+    'en' => ['name' => 'English',     'flag' => 'assets/images/global/flag-us.svg'],
+    'zh' => ['name' => '中文',        'flag' => 'assets/images/global/flag-cn.svg'],
+    'km' => ['name' => 'ភាសាខ្មែរ',   'flag' => 'assets/images/global/flag-kh.svg'],
+];
+
+// Danh sách mã ngôn ngữ được hỗ trợ (tự động từ mảng trên)
+$supportedLangs = array_keys($languages);
 
 // Chuyển ngôn ngữ khi có ?lang=vi hoặc ?lang=en trên URL
 if (isset($_GET['lang']) && in_array($_GET['lang'], $supportedLangs, true)) {

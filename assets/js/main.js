@@ -33,7 +33,45 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // --- 3. Đóng menu mobile khi resize về desktop ---
+    // --- 2b. Mở / đóng Language dropdown (desktop & mobile) ---
+    var langDropdowns = document.querySelectorAll('.lang-dropdown');
+    langDropdowns.forEach(function (dropdown) {
+        var toggle = dropdown.querySelector('.lang-dropdown-toggle');
+        if (!toggle) return;
+
+        toggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropdown.classList.toggle('is-open');
+
+            // Đóng các lang dropdown khác đang mở
+            langDropdowns.forEach(function (other) {
+                if (other !== dropdown) {
+                    other.classList.remove('is-open');
+                }
+            });
+        });
+    });
+
+    // Đóng lang dropdown khi click ra ngoài
+    document.addEventListener('click', function (e) {
+        langDropdowns.forEach(function (dropdown) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('is-open');
+            }
+        });
+    });
+
+    // Đóng lang dropdown khi nhấn phím Escape
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            langDropdowns.forEach(function (dropdown) {
+                dropdown.classList.remove('is-open');
+            });
+        }
+    });
+
+    // --- 3. Đóng menu mobile và lang dropdown khi resize về desktop ---
     window.addEventListener('resize', function () {
         if (window.innerWidth > 992 && menu) {
             menu.classList.remove('is-open');
@@ -43,6 +81,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 li.classList.remove('is-open');
             });
         }
+        // Đóng tất cả lang dropdown khi resize
+        document.querySelectorAll('.lang-dropdown.is-open').forEach(function (dd) {
+            dd.classList.remove('is-open');
+        });
     });
 
     // --- 4. Thu nhỏ navbar khi cuộn trang ---

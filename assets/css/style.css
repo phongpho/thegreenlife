@@ -308,37 +308,126 @@ p {
     align-items: center;
     gap: var(--spacing-2);
 }
-.lang-switcher {
-    display: flex;
-    align-items: center;
+/* ===== Language Dropdown ===== */
+.lang-dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-.lang-switcher a {
+.lang-dropdown-toggle {
     display: inline-flex;
     align-items: center;
-    gap: 6px; /* Khoảng cách vừa vặn giữa chữ và lá cờ */
-    color: var(--text-light);
-    font-weight: 700;
+    gap: 6px;
+    background: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: var(--border-radius);
+    color: var(--text-main);
+    font-weight: 500;
     font-size: 0.95rem;
-    transition: color 0.3s ease;
+    font-family: inherit;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 
-.lang-switcher a:hover,
-.lang-switcher a.active {
+.lang-dropdown-toggle:hover {
+    border-color: var(--bg-light);
+    background-color: var(--bg-light);
+}
+
+.lang-dropdown-toggle .flag-icon {
+    display: block;
+    border-radius: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.lang-dropdown-toggle .lang-code {
+    font-weight: 700;
+}
+
+.lang-dropdown-toggle .caret {
+    font-size: 0.65em;
+    transition: transform 0.3s;
+}
+
+.lang-dropdown.is-open .lang-dropdown-toggle .caret {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--white);
+    box-shadow: var(--box-shadow);
+    list-style: none;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: all 0.25s ease;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    border-top: 3px solid var(--primary-color);
+    z-index: 1020;
+    padding: 4px 0;
+}
+
+/* Hiển thị dropdown khi hover (Desktop) */
+@media (min-width: 993px) {
+    .lang-dropdown:hover .lang-dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+.lang-dropdown.is-open .lang-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-dropdown-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    color: var(--text-main);
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--bg-light);
+    transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap;
+}
+
+.lang-dropdown-menu li:last-child a {
+    border-bottom: none;
+}
+
+.lang-dropdown-menu li a:hover,
+.lang-dropdown-menu li a.active {
+    background-color: var(--bg-light);
     color: var(--primary-color);
 }
 
-/* Định dạng cho lá cờ */
-.lang-switcher .flag-icon {
+.lang-dropdown-menu .flag-icon {
     display: block;
-    border-radius: 1px; /* Bo góc cực nhẹ để lá cờ trông tinh tế */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); /* Viền bóng mờ giúp cờ nổi bật trên nền trắng */
+    border-radius: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     object-fit: cover;
+    flex-shrink: 0;
 }
 
-.lang-switcher .divider {
-    margin: 0 8px;
-    color: var(--text-light);
+/* Mobile language dropdown – ẩn trên desktop */
+.lang-dropdown--mobile {
+    display: none;
+}
+
+/* Nhóm lang + hamburger trên mobile */
+.mobile-utils {
+    display: none;
 }
 /* Nút Toggle Mobile (Mặc định ẩn trên Desktop) */
 .navbar-toggle {
@@ -368,11 +457,6 @@ p {
 }
 .navbar-toggle.is-open .bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
-}
-
-/* Language switcher trong menu mobile – ẩn trên desktop */
-.nav-lang-mobile {
-    display: none;
 }
 
 
@@ -646,20 +730,20 @@ p {
         transform: rotate(180deg);
     }
 
-    /* Ẩn nav-utils desktop, hiện language trong menu mobile */
+    /* Ẩn nav-utils desktop, hiện language dropdown ngoài menu mobile */
     .nav-utils {
         display: none;
     }
 
-    .nav-lang-mobile {
-        display: block;
-        padding: 14px 0 8px;
-        border-top: 1px solid var(--bg-light);
-        margin-top: 4px;
+    .mobile-utils {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        order: 10;
     }
 
-    .nav-lang-mobile .lang-switcher {
-        justify-content: center;
+    .lang-dropdown--mobile {
+        display: inline-block;
     }
 
     /* --- Header --- */
@@ -674,19 +758,20 @@ p {
     }
 
     .logo {
-        bottom: -34px;
+        bottom: -38px;
         left: 16px;
     }
 
     .logo-card {
-        padding: 10px 18px 28px;
+        padding: 12px 20px 32px;
         border-bottom-left-radius: 14px;
         border-bottom-right-radius: 14px;
     }
 
     .logo-img {
-        height: 72px;
-        top: 20px;
+        height: 84px;
+        width: auto;
+        top: 25px;
     }
 
     /* --- Footer --- */
@@ -765,7 +850,8 @@ p {
     }
 
     .logo-img {
-        height: 60px;
+        height: 80px;
+        width: auto;
         top: 16px;
     }
 
@@ -844,14 +930,16 @@ p {
     }
 
     .logo-card {
-        padding: 5px 12px 20px;
+        padding: 9px 12px 20px;
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
     }
 
     .logo-img {
-        height: 52px;
-        top: 12px;
+        height: 82px;
+        width: auto;
+        padding: 5px;
+        top: 20px;
     }
 
     .title-with-line {
