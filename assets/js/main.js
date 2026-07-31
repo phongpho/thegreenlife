@@ -281,9 +281,29 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(function () { locked = false; }, LOCK_TIME);
         }
 
-        initSlider();
+
+
+                initSlider();
         nextProdBtn.addEventListener('click', slideNext);
         prevProdBtn.addEventListener('click', slidePrev);
+
+        // --- Logic Swipe ---
+        var touchStartX = 0;
+        var touchEndX = 0;
+
+        productTrack.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        productTrack.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            var threshold = 50; 
+            if (touchEndX < touchStartX - threshold) {
+                slideNext();
+            } else if (touchEndX > touchStartX + threshold) {
+                slidePrev();
+            }
+        }, { passive: true });
     }
 
 });
