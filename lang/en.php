@@ -41,6 +41,31 @@ return [
     'index_banner_prev' => 'Previous image',
     'index_banner_next' => 'Next image',
 
+    // farms
+    'index_farms_heading' => 'OUR RICE FIELD SYSTEM',
+    'index_farm_desc' => 'The Green Life owns and develops a rice raw material zone system managed under synchronized farming processes, ensuring quality from planting, care to harvesting. A stable raw material supply contributes to meeting the needs of high-quality rice processing and export.',
+    'index_farm_harvest_title' => 'HARVESTING',
+    'index_farm_harvest_desc' => 'Harvesting at the right time to ensure the best rice grain quality.',
+    'index_farm_transport_title' => 'TRANSPORTATION',
+    'index_farm_transport_desc' => 'Fast, safe transportation preserving rice quality.',
+    'index_farm_storage_title' => 'STORAGE',
+    'index_farm_storage_desc' => 'Standardized warehouse system, keeping rice dry, well-ventilated, and safe.',
+
+    // seafarms
+    'index_seafarm_heading' => 'SEAFOOD RAW MATERIAL ZONES',
+    'index_seafarm_desc' => 'The Green Life seafood raw material zone system is invested in and managed under a rigorous process, ensuring stable supply, consistent quality, and compliance with standards for processing and export.',
+    'index_seafarm_note_1_title' => 'Certified Farming Zones',
+    'index_seafarm_note_1_desc' => 'High quality',
+    'index_seafarm_note_2_title' => 'Strict Control',
+    'index_seafarm_note_2_desc' => 'From pond to factory',
+    'index_seafarm_note_3_title' => 'Stable Supply',
+    'index_seafarm_note_3_desc' => 'Clear and transparent',
+    'index_seafarm_harvest_title' => 'HARVESTING',
+    'index_seafarm_harvest_desc' => 'Ensuring freshness and quality.',
+    'index_seafarm_transport_title' => 'TRANSPORTATION',
+    'index_seafarm_transport_desc' => 'Fast transportation using specialized vehicles.',
+    'index_seafarm_storage_title' => 'COLD STORAGE',
+    'index_seafarm_storage_desc' => 'Cold storage at optimal temperatures to ensure the best quality.',
 
     // Values
     'index_value_1_title' => 'Credibility',

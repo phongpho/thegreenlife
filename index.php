@@ -31,7 +31,7 @@ if (is_dir($bannerDir)) {
     <!-- Open Graph -->
     <meta property="og:title" content="<?= htmlspecialchars($lang['index_og_title']) ?>">
     <meta property="og:description" content="<?= htmlspecialchars($lang['index_meta_desc']) ?>">
-    <meta property="og:image" content="https://thegreenlife.vn/assets/images/global/the-green-life-logo.png">
+    <meta property="og:image" content="https://thegreenlife.vn/assets/images/global/the-green-life-logo.webp">
     <meta property="og:url" content="https://thegreenlife.vn/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Green Life">
@@ -41,11 +41,11 @@ if (is_dir($bannerDir)) {
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?= htmlspecialchars($lang['index_og_title']) ?>">
     <meta name="twitter:description" content="<?= htmlspecialchars($lang['index_meta_desc']) ?>">
-    <meta name="twitter:image" content="https://thegreenlife.vn/assets/images/global/the-green-life-logo.png">
+    <meta name="twitter:image" content="https://thegreenlife.vn/assets/images/global/the-green-life-logo.webp">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/images/global/favicon.ico">
-    <link rel="apple-touch-icon" href="assets/images/global/the-green-life-logo.png">
+    <link rel="apple-touch-icon" href="assets/images/global/the-green-life-logo.webp">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,7 +64,7 @@ if (is_dir($bannerDir)) {
       "@type": "Organization",
       "name": "The Green Life",
       "url": "https://thegreenlife.vn",
-      "logo": "https://thegreenlife.vn/assets/images/global/the-green-life-logo.png",
+      "logo": "https://thegreenlife.vn/assets/images/global/the-green-life-logo.webp",
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+84939660004",
@@ -207,6 +207,168 @@ if (is_dir($bannerDir)) {
             </div>
         </section>
 
+        <!-- hệ thống ruộng lúa -->
+        <section class="section farms-section" aria-labelledby="farms-heading">
+            <div class="container">
+                <div class="content-farm">
+                    <div class="section-header-farms">
+                        <h2 class="title-with-line" id="farms-heading"><?= $lang['index_farms_heading'] ?></h2>
+
+                        <p class="hero-desc">
+                            <?= $lang['index_farm_desc'] ?>
+                        </p>
+                    </div>
+
+                    <div class="picture">
+                        <img src="assets/images/index/ruong-lua.webp" alt="About Us">
+                    </div>
+                </div>
+
+                <div class="farm-small">
+
+                    <div class="farm-item">
+                        <img src="assets/images/index/thu-hoach-lua.webp">
+                        <div class="farm-item-content">
+                            <div class="farm-icon">
+                                <i class="fa-solid fa-wheat-awn"></i>
+                            </div>
+                            <div class="farm-item-title">
+                                <h3><?= $lang['index_farm_harvest_title'] ?></h3>
+                                <p><?= $lang['index_farm_harvest_desc'] ?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="farm-item">
+                        <img src="assets/images/index/van-chuyen-lua.webp">
+                        <div class="farm-item-content">
+                            <div class="farm-icon">
+                                <i class="fa-solid fa-truck"></i>
+                            </div>
+                            <div class="farm-item-title">
+                                <h3><?= $lang['index_farm_transport_title'] ?></h3>
+                                <p><?= $lang['index_farm_transport_desc'] ?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="farm-item">
+                        <img src="assets/images/index/kho-chua-lua.webp">
+                        <div class="farm-item-content">
+                            <div class="farm-icon">
+                                <i class="fa-solid fa-house"></i>
+                            </div>
+                            <div class="farm-item-title">
+                                <h3><?= $lang['index_farm_storage_title'] ?></h3>
+                                <p><?= $lang['index_farm_storage_desc'] ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- vùng nguyên liệu thủy sản -->
+        <section class="section seafarms-section" aria-labelledby="seafarms-heading">
+            <div class="container">
+                <div class="content-seafarm">
+                    <div class="section-header-seafarms">
+                        <h2 class="title-with-line" id="seafarms-heading"><?= $lang['index_seafarm_heading'] ?></h2>
+
+                        <p class="hero-desc">
+                            <?= $lang['index_seafarm_desc'] ?>
+                        </p>
+
+                        <div class="note-item">
+                            <div class="icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="note-item-content">
+                                <span>
+                                    <?= $lang['index_seafarm_note_1_title'] ?>
+                                </span>
+                                <p>
+                                    <?= $lang['index_seafarm_note_1_desc'] ?>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="note-item">
+                            <div class="icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="note-item-content">
+                                <span>
+                                    <?= $lang['index_seafarm_note_2_title'] ?>
+                                </span>
+                                <p>
+                                    <?= $lang['index_seafarm_note_2_desc'] ?>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="note-item">
+                            <div class="icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="note-item-content">
+                                <span>
+                                    <?= $lang['index_seafarm_note_3_title'] ?>
+                                </span>
+                                <p>
+                                    <?= $lang['index_seafarm_note_3_desc'] ?>
+                                </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="picture">
+                        <img src="assets/images/index/trang-trai-thuy-san.webp" alt="About Us">
+                    </div>
+                </div>
+
+                <div class="seafarm-small">
+
+                    <div class="seafarm-item">
+                        <img src="assets/images/index/thu-hoach-ca.webp">
+                        <div class="seafarm-item-content">
+                            
+                            <div class="seafarm-item-title">
+                                <h3><?= $lang['index_seafarm_harvest_title'] ?></h3>
+                                <p><?= $lang['index_seafarm_harvest_desc'] ?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="seafarm-item">
+                        <img src="assets/images/index/van-chuyen-ca.webp">
+                        <div class="seafarm-item-content">
+                            
+                            <div class="seafarm-item-title">
+                                <h3><?= $lang['index_seafarm_transport_title'] ?></h3>
+                                <p><?= $lang['index_seafarm_transport_desc'] ?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="seafarm-item">
+                        <img src="assets/images/index/bao-quan-ca.webp">
+                        <div class="seafarm-item-content">
+                            
+                            <div class="seafarm-item-title">
+                                <h3><?= $lang['index_seafarm_storage_title'] ?></h3>
+                                <p><?= $lang['index_seafarm_storage_desc'] ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <!-- lĩnh vực hoạt động cơ bản -->
         <section class="section activities-section" aria-labelledby="activities-heading">
             <div class="container">
@@ -269,7 +431,7 @@ if (is_dir($bannerDir)) {
 
 
         <!-- sản phẩm -->
-        <div class="section products-section">
+        <section class="section products-section">
             <div class="container">
                 <div class="section-header">
                     <h2 class="title-with-line" id="products-heading"><?= $lang['index_products_heading'] ?></h2>

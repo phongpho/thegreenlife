@@ -40,6 +40,31 @@ return [
     'index_banner_prev' => 'Ảnh trước',
     'index_banner_next' => 'Ảnh sau',
 
+    // farms
+    'index_farms_heading' => 'HỆ THỐNG RUỘNG LÚA CỦA CHÚNG TÔI',
+    'index_farm_desc' => 'The Green Life sở hữu và phát triển hệ thống vùng nguyên liệu lúa được quản lý theo quy trình canh tác đồng bộ, đảm bảo chất lượng từ gieo trồng, chăm sóc đến thu hoạch. Nguồn nguyên liệu ổn định góp phần đáp ứng nhu cầu chế biến và xuất khẩu lúa gạo chất lượng cao.',
+    'index_farm_harvest_title' => 'THU HOẠCH',
+    'index_farm_harvest_desc' => 'thu hoạch đúng thời điểm để đảm bảo chất lượng hạt lúa tốt nhất.',
+    'index_farm_transport_title' => 'VẬN CHUYỂN',
+    'index_farm_transport_desc' => 'vận chuyển nhanh chóng, an toàn, giữ nguyên chất lượng lúa.',
+    'index_farm_storage_title' => 'KHO CHỨA',
+    'index_farm_storage_desc' => 'hệ thống kho đạt chuyển, bảo lúa khô ráo, thông thoáng, an toàn.',
+
+    // seafarms
+    'index_seafarm_heading' => 'VÙNG NGUYÊN LIỆU THỦY SẢN',
+    'index_seafarm_desc' => 'Hệ thống vùng nguyên liệu thủy sản của The Green Life được đầu tư và quản lý theo quy trình chặt chẽ, đảm bảo nguồn cung ổn định, chất lượng đồng đều và đáp ứng các tiêu chuẩn phục vụ chế biến, xuất khẩu.',
+    'index_seafarm_note_1_title' => 'Vùng nuôi đạt chuẩn',
+    'index_seafarm_note_1_desc' => 'Chất lượng cao',
+    'index_seafarm_note_2_title' => 'Kiểm soát chặt chẽ',
+    'index_seafarm_note_2_desc' => 'Từ ao nuôi đến nhà máy',
+    'index_seafarm_note_3_title' => 'Nguồn cung ổn định',
+    'index_seafarm_note_3_desc' => 'Rõ ràng, minh bạch',
+    'index_seafarm_harvest_title' => 'THU HOẠCH',
+    'index_seafarm_harvest_desc' => 'Đảm bảo độ tươi và chất lượng.',
+    'index_seafarm_transport_title' => 'VẬN CHUYỂN',
+    'index_seafarm_transport_desc' => 'Vận chuyển nhanh chóng bằng phương tiện chuyên dụng.',
+    'index_seafarm_storage_title' => 'BẢO QUẢN',
+    'index_seafarm_storage_desc' => 'Bảo quản lạnh ở nhiệt độ phù hợp đảm bảo chất lượng tốt nhất.',
 
     // Values
     'index_value_1_title' => 'Uy tín',
