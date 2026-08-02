@@ -33,7 +33,7 @@ require_once __DIR__ . '/includes/language.php';
 
                 <div class="breadcrumb">
 
-                    <a href="index.php"><?= $lang['breadcrumb_home'] ?></a>
+                    <a href="<?= route_to_url('index.php', $currentLang) ?>"><?= $lang['breadcrumb_home'] ?></a>
 
                     <span>/</span>
 

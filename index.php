@@ -1,13 +1,12 @@
 <?php
 require_once __DIR__ . '/includes/language.php';
 
-// Tự động quét toàn bộ ảnh trong thư mục assets/images/banner
 $bannerDir = __DIR__ . '/assets/images/banner';
 $bannerImages = [];
 
 if (is_dir($bannerDir)) {
     $files = glob($bannerDir . '/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', GLOB_BRACE);
-    natsort($files); // sắp xếp banner-1, banner-2... đúng thứ tự
+    natsort($files); 
     foreach ($files as $file) {
         $bannerImages[] = 'assets/images/banner/' . basename($file);
     }
@@ -144,7 +143,7 @@ if (is_dir($bannerDir)) {
                         <?= $lang['index_hero_desc'] ?>
                     </p>
 
-                    <a href="about-us.php" class="btn btn-primary">
+                    <a href="<?= route_to_url('about-us.php', $currentLang) ?>" class="btn btn-primary">
                         <?= $lang['index_btn_learn_more'] ?>
                     </a>
                 </div>
@@ -376,10 +375,7 @@ if (is_dir($bannerDir)) {
                     <h2 class="title-with-line" id="activities-heading"><?= $lang['index_activities_heading'] ?></h2>
                 </div>
 
-                <!-- Khối chứa các thẻ -->
                 <div class="activity-grid">
-
-                    <!-- Thẻ 1 -->
                     <div class="activity-card">
                         <div class="activity-picture">
                             <img src="assets/images/index/quy-trinh-xuat-nhap-khau.jpg"
@@ -391,10 +387,9 @@ if (is_dir($bannerDir)) {
                                 <?= $lang['index_activity_1_desc'] ?>
                             </p>
                         </div>
-                        <a href="grain-trading.php" class="corner-btn"><i class="fas fa-arrow-right"></i></a>
+                        <a href="<?= route_to_url('grain-trading.php', $currentLang) ?>" class="corner-btn"><i class="fas fa-arrow-right"></i></a>
                     </div>
 
-                    <!-- Thẻ 2 -->
                     <div class="activity-card">
                         <div class="activity-picture">
                             <img src="assets/images/index/ca-nguyen-lieu-sach.jpg"
@@ -406,10 +401,9 @@ if (is_dir($bannerDir)) {
                                 <?= $lang['index_activity_2_desc'] ?>
                             </p>
                         </div>
-                        <a href="seafood.php" class="corner-btn"><i class="fas fa-arrow-right"></i></a>
+                        <a href="<?= route_to_url('seafood.php', $currentLang) ?>" class="corner-btn"><i class="fas fa-arrow-right"></i></a>
                     </div>
 
-                    <!-- Thẻ 3 -->
                     <div class="activity-card">
                         <div class="activity-picture">
                             <img src="assets/images/index/thuong-mai-dich-vu.jpg"
@@ -421,7 +415,7 @@ if (is_dir($bannerDir)) {
                                 <?= $lang['index_activity_3_desc'] ?>
                             </p>
                         </div>
-                        <a href="services.php" class="corner-btn"><i class="fas fa-arrow-right"></i></a>
+                        <a href="<?= route_to_url('services.php', $currentLang) ?>" class="corner-btn"><i class="fas fa-arrow-right"></i></a>
                     </div>
 
                 </div>
@@ -431,7 +425,7 @@ if (is_dir($bannerDir)) {
 
 
         <!-- sản phẩm -->
-        <section class="section products-section">
+        <section class="section products-section" aria-labelledby="products-heading">
             <div class="container">
                 <div class="section-header">
                     <h2 class="title-with-line" id="products-heading"><?= $lang['index_products_heading'] ?></h2>
@@ -567,6 +561,54 @@ if (is_dir($bannerDir)) {
                                 <?= $lang['index_news_updating'] ?>
                             </h4>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- liên hệ ngay -->
+        <section class="section cta-section" aria-labelledby="cta-heading">
+            <div class="cta-container">
+                <!-- Organic blob background -->
+                <div class="cta-blob" aria-hidden="true">
+                    <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M420.5,62.8C481.3,95.2,557.8,138.7,574.2,199.3C590.6,259.9,546.8,337.6,496.4,387.1C446,436.6,389.1,457.8,320.3,472.5C251.5,487.2,170.9,495.4,113.6,458.8C56.3,422.2,22.3,340.9,11.8,269.1C1.3,197.3,14.4,135,54.8,89.2C95.2,43.4,162.9,14.1,243.7,9.9C324.5,5.7,359.7,30.4,420.5,62.8Z" fill="currentColor" opacity="0.06"/>
+                    </svg>
+                </div>
+                <div class="cta-blob cta-blob--secondary" aria-hidden="true">
+                    <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M323.2,43.9C388.9,69.5,460.5,109.5,474.2,167.5C487.9,225.5,443.7,301.5,388.2,343.9C332.7,386.3,266,395,206.2,402.5C146.4,410,93.5,416.3,58.2,382.1C22.9,347.9,5.2,273.3,2.8,209.5C0.4,145.7,13.3,92.7,47.8,55.5C82.3,18.3,138.4,-3.1,213.7,0.4C289,3.9,257.5,18.3,323.2,43.9Z" fill="currentColor" opacity="0.04"/>
+                    </svg>
+                </div>
+
+                <!-- Visual circle (right side) -->
+                <div class="cta-visual" aria-hidden="true">
+                    <div class="cta-circle">
+                        <div class="cta-circle-ring cta-circle-ring--1"></div>
+                        <div class="cta-circle-ring cta-circle-ring--2"></div>
+                        <div class="cta-circle-inner">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                    </div>
+                    <div class="cta-dot cta-dot--1" aria-hidden="true"></div>
+                    <div class="cta-dot cta-dot--2" aria-hidden="true"></div>
+                    <div class="cta-dot cta-dot--3" aria-hidden="true"></div>
+                </div>
+
+                <!-- Content (left side) -->
+                <div class="cta-content">
+                    <span class="cta-tag"><?= $lang['index_cta_tag'] ?></span>
+                    <h2 class="cta-heading" id="cta-heading"><?= $lang['index_cta_heading'] ?></h2>
+                    <p class="cta-desc"><?= $lang['index_cta_desc'] ?></p>
+                    <div class="cta-actions">
+                        <a href="<?= route_to_url('contact.php', $currentLang) ?>" class="cta-btn cta-btn--primary">
+                            <?= $lang['index_cta_btn_primary'] ?>
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                        <a href="<?= route_to_url('services.php', $currentLang) ?>" class="cta-btn cta-btn--secondary">
+                            <?= $lang['index_cta_btn_secondary'] ?>
+                        </a>
                     </div>
                 </div>
             </div>

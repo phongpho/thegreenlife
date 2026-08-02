@@ -102,8 +102,15 @@ return [
     'index_news_heading' => 'TIN TỨC & SỰ KIỆN',
     'index_news_updating' => 'Đang cập nhật!',
 
+    // CTA Section
+    'index_cta_tag' => 'BẮT ĐẦU HỢP TÁC',
+    'index_cta_heading' => 'Sẵn sàng đồng hành cùng The Green Life?',
+    'index_cta_desc' => 'Chúng tôi luôn mở rộng kết nối với các đối tác, khách hàng trong và ngoài nước. Hãy liên hệ ngay để cùng xây dựng chuỗi giá trị nông sản bền vững.',
+    'index_cta_btn_primary' => 'Liên hệ ngay',
+    'index_cta_btn_secondary' => 'Khám phá dịch vụ',
+
     // --- SEO Meta ---
-    'index_meta_desc' => 'The Green Life – Công ty đa ngành hàng đầu về xuất nhập khẩu lúa gạo, thủy sản nguyên liệu và dịch vụ lưu trú tại Đồng bằng Sông Cửu Long. Cam kết uy tín, chất lượng, phát triển bền vững.',
+    'index_meta_desc' => 'The Green Life - Công ty đa ngành hàng đầu về xuất nhập khẩu lúa gạo, thủy sản nguyên liệu và dịch vụ lưu trú tại Đồng bằng Sông Cửu Long. Cam kết uy tín, chất lượng, phát triển bền vững.',
     'index_og_title' => 'Xuất Nhập Khẩu Lúa Gạo & Thủy Sản | The Green Life',
 
     // --- About Us ---

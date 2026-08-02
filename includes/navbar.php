@@ -1,10 +1,10 @@
 <?php
-$currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
+$currentPage = route_current_file();
 ?>
 <header id="siteHeader" class="site-header">
     <div class="container header-container">
         
-        <a href="index.php" class="logo">
+        <a href="<?= route_to_url('index.php', $currentLang) ?>" class="logo">
             <div class="logo-card">
                 <img src="assets/images/global/the-green-life-logo.webp" alt="The Green Life" class="logo-img">
             </div>
@@ -40,45 +40,45 @@ $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
         <nav class="navbar-menu" id="navbarMenu">
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="index.php" class="nav-link <?= ($currentPage === 'index.php') ? 'active' : '' ?>">
+                    <a href="<?= route_to_url('index.php', $currentLang) ?>" class="nav-link <?= ($currentPage === 'index.php') ? 'active' : '' ?>">
                         <?= $lang['nav_home'] ?? 'Trang chủ' ?>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="about-us.php" class="nav-link <?= ($currentPage === 'about-us.php') ? 'active' : '' ?>">
+                    <a href="<?= route_to_url('about-us.php', $currentLang) ?>" class="nav-link <?= ($currentPage === 'about-us.php') ? 'active' : '' ?>">
                         <?= $lang['nav_about'] ?? 'Về chúng tôi' ?>
                     </a>
                 </li>
 
                 <li class="nav-item has-dropdown <?= ($currentPage === 'grain-trading.php') ? 'active' : '' ?>">
-                    <a href="grain-trading.php" class="nav-link dropdown-toggle">
+                    <a href="<?= route_to_url('grain-trading.php', $currentLang) ?>" class="nav-link dropdown-toggle">
                         <?= $lang['nav_operations'] ?? 'Lĩnh vực hoạt động' ?>
                         <span class="caret">▼</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a
-                                href="grain-trading.php"><?= $lang['nav_agriculture'] ?? 'Xuất nhập khẩu & Chế biến lương thực' ?></a>
+                                href="<?= route_to_url('grain-trading.php', $currentLang) ?>"><?= $lang['nav_agriculture'] ?? 'Xuất nhập khẩu & Chế biến lương thực' ?></a>
                         </li>
-                        <li><a href="seafood.php"><?= $lang['nav_seafood'] ?? 'Thủy sản nguyên liệu' ?></a>
+                        <li><a href="<?= route_to_url('seafood.php', $currentLang) ?>"><?= $lang['nav_seafood'] ?? 'Thủy sản nguyên liệu' ?></a>
                         </li>
                         <li><a
-                                href="services.php"><?= $lang['nav_services'] ?? 'Thương mại dịch vụ & Lưu trú' ?></a>
+                                href="<?= route_to_url('services.php', $currentLang) ?>"><?= $lang['nav_services'] ?? 'Thương mại dịch vụ & Lưu trú' ?></a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="products.php" class="nav-link <?= ($currentPage === 'products.php') ? 'active' : '' ?>">
+                    <a href="<?= route_to_url('products.php', $currentLang) ?>" class="nav-link <?= ($currentPage === 'products.php') ? 'active' : '' ?>">
                         <?= $lang['nav_products'] ?? 'Sản phẩm' ?>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="news.php" class="nav-link <?= ($currentPage === 'news.php') ? 'active' : '' ?>">
+                    <a href="<?= route_to_url('news.php', $currentLang) ?>" class="nav-link <?= ($currentPage === 'news.php') ? 'active' : '' ?>">
                         <?= $lang['nav_news'] ?? 'Tin tức & Sự kiện' ?>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="contact.php" class="nav-link <?= ($currentPage === 'contact.php') ? 'active' : '' ?>">
+                    <a href="<?= route_to_url('contact.php', $currentLang) ?>" class="nav-link <?= ($currentPage === 'contact.php') ? 'active' : '' ?>">
                         <?= $lang['nav_contact'] ?? 'Liên hệ' ?>
                     </a>
                 </li>

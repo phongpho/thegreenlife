@@ -38,10 +38,10 @@
             <div class="footer-col">
                 <h4><?= $lang['categories'] ?></h4>
                 <ul class="footer-links">
-                    <li><a href="about-us.php"><?= $lang['about_us'] ?></a></li>
-                    <li><a href="grain-trading.php"><?= $lang['business_areas'] ?></a></li>
-                    <li><a href="products.php"><?= $lang['typical_products'] ?></a></li>
-                    <li><a href="news.php"><?= $lang['news_events'] ?></a></li>
+                    <li><a href="<?= route_to_url('about-us.php', $currentLang) ?>"><?= $lang['about_us'] ?></a></li>
+                    <li><a href="<?= route_to_url('grain-trading.php', $currentLang) ?>"><?= $lang['business_areas'] ?></a></li>
+                    <li><a href="<?= route_to_url('products.php', $currentLang) ?>"><?= $lang['typical_products'] ?></a></li>
+                    <li><a href="<?= route_to_url('news.php', $currentLang) ?>"><?= $lang['news_events'] ?></a></li>
                 </ul>
             </div>
 

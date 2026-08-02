@@ -103,6 +103,13 @@ return [
     'index_news_heading' => 'NEWS & EVENTS',
     'index_news_updating' => 'Updating!',
 
+    // CTA Section
+    'index_cta_tag' => 'START A PARTNERSHIP',
+    'index_cta_heading' => 'Ready to partner with The Green Life?',
+    'index_cta_desc' => 'We are always open to connecting with partners and customers both domestically and internationally. Contact us today to build a sustainable agricultural value chain together.',
+    'index_cta_btn_primary' => 'Contact Us',
+    'index_cta_btn_secondary' => 'Explore Services',
+
     // --- SEO Meta ---
     'index_meta_desc' => 'The Green Life – A leading multi-sector company in rice export, raw seafood materials, and hospitality services in the Mekong Delta, Vietnam. Committed to credibility, quality, and sustainable development.',
     'index_og_title' => 'Rice Export & Raw Seafood Materials | The Green Life',

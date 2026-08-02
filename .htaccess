@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# ── Base path (sửa thành / khi deploy production) ────────────
+RewriteBase /thegreenlife-v2/
+
 # ── Chặn truy cập trực tiếp vào file nhạy cảm ──────────────────
 <FilesMatch "^(\.env|composer\.(json|lock)|Dockerfile|start\.bat)$">
     Require all denied
@@ -7,6 +10,73 @@ RewriteEngine On
 
 # ── Chặn truy cập vào thư mục nội bộ ──────────────────────────
 RedirectMatch 403 ^/(vendor|config|logs)/
+
+# ── 301 Redirect .php → clean URL (SEO canonical) ─────────────
+#   Bỏ qua send-contact.php (form handler backend)
+RewriteCond %{THE_REQUEST} \s/([^.]+)\.php [NC]
+RewriteCond %{REQUEST_URI} !/send-contact\.php$
+RewriteRule ^ /%1 [R=301,L]
+
+# ── Internal Rewrite: clean URL → .php file ───────────────────
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^$ index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^gioi-thieu$ about-us.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^about-us$ about-us.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^lien-he$ contact.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^contact$ contact.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^thuy-san$ seafood.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^seafood$ seafood.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^xuat-nhap-khau$ grain-trading.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^grain-trading$ grain-trading.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^thuong-mai-dich-vu$ services.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^services$ services.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^san-pham$ products.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^products$ products.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^tin-tuc$ news.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^news$ news.php [L]
 
 # ── Gzip Compression ──────────────────────────────────────────
 <IfModule mod_deflate.c>
@@ -28,8 +98,3 @@ RedirectMatch 403 ^/(vendor|config|logs)/
     ExpiresByType font/ttf "access plus 1 year"
     ExpiresByType font/otf "access plus 1 year"
 </IfModule>
-
-# ── Rewrite (dự phòng cho sau này) ────────────────────────────
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

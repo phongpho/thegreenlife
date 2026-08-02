@@ -4,6 +4,9 @@
 # Environment
 .env
 
+# Config credentials
+config/mail.php
+
 # Logs
 /logs/
 

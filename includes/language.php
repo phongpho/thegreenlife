@@ -32,14 +32,21 @@ if (!in_array($currentLang, $supportedLangs, true)) {
 $langFile = __DIR__ . '/../lang/' . $currentLang . '.php';
 $lang = file_exists($langFile) ? include $langFile : include __DIR__ . '/../lang/vi.php';
 
+// Nạp route config cho clean URLs
+require_once __DIR__ . '/routes.php';
+
 /**
  * Helper: tạo lại URL hiện tại nhưng đổi tham số lang
  * (giữ nguyên các query string khác, ví dụ ?id=5&lang=en)
+ * Tự động dịch slug khi chuyển ngôn ngữ (VD: /gioi-thieu → /about-us?lang=en)
  */
 function lang_switch_url(string $targetLang): string
 {
+    $currentFile = route_current_file();
+    $targetUrl = route_to_url($currentFile, $targetLang);
+
     $query = $_GET;
     $query['lang'] = $targetLang;
-    $path = strtok($_SERVER['REQUEST_URI'] ?? '', '?');
-    return $path . '?' . http_build_query($query);
+
+    return $targetUrl . '?' . http_build_query($query);
 }
