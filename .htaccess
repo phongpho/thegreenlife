@@ -1,7 +1,7 @@
 RewriteEngine On
 
 # ── Base path (sửa thành / khi deploy production) ────────────
-RewriteBase /thegreenlife-v2/
+RewriteBase
 
 # ── Chặn truy cập trực tiếp vào file nhạy cảm ──────────────────
 <FilesMatch "^(\.env|composer\.(json|lock)|Dockerfile|start\.bat)$">
